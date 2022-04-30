@@ -1,4 +1,6 @@
 package logic.bots;
 
-public abstract class Bot {
+import logic.models.Player;
+
+public abstract class Bot extends Player {
 }
