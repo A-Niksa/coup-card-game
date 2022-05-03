@@ -1,4 +1,12 @@
 package utils.resources;
 
-public interface ImageIdentifier {
+enum ImageIdentifier {
+    HELP,
+    COIN,
+    AMBASSADOR,
+    ASSSASSIN,
+    CAPTAIN,
+    CONTESSA,
+    DUKE,
+    CARD_BACK
 }
