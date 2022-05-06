@@ -1,6 +1,8 @@
 package utils.resources;
 
-enum ImageIdentifier {
+public enum ImageIdentifier {
+    MENU_BACKGROUND,
+    LOGO,
     HELP,
     COIN,
     AMBASSADOR,

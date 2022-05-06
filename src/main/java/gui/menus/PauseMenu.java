@@ -1,4 +1,6 @@
 package gui.menus;
 
-public class PauseMenu {
+import javax.swing.*;
+
+public class PauseMenu extends JPanel {
 }

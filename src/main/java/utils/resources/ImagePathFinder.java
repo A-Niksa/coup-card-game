@@ -1,26 +1,30 @@
 package utils.resources;
 
 class ImagePathFinder {
-    private final String imagesPath;
     private final String cardsPath;
     private final String componentsPath;
+    private final String miscPath;
     private final String jpgSuffix;
     private final String pngSuffix;
 
     ImagePathFinder() {
-        imagesPath = "images/";
         cardsPath = "images/cards/";
         componentsPath = "images/components/";
+        miscPath = "images/misc/";
         jpgSuffix = ".jpg";
         pngSuffix = ".png";
     }
 
     public String getPartialPath(ImageIdentifier identifier) {
         switch (identifier) {
+            case MENU_BACKGROUND:
+                return formatPath(miscPath, "menubackground", jpgSuffix);
             case HELP:
-                return formatPath(imagesPath, "help", jpgSuffix);
+                return formatPath(miscPath, "help", jpgSuffix);
+            case LOGO:
+                return formatPath(miscPath, "logo", pngSuffix);
             case COIN:
-                return formatPath(imagesPath, "coin", pngSuffix);
+                return formatPath(componentsPath, "coin", pngSuffix);
             case AMBASSADOR:
                 return formatPath(cardsPath, "ambassador", jpgSuffix);
             case ASSSASSIN:
