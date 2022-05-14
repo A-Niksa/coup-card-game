@@ -1,4 +1,13 @@
 package logic.models;
 
-public abstract class Card {
+public class Card {
+    private CardIdentifier identifier;
+
+    public Card(CardIdentifier identifier) {
+        this.identifier = identifier;
+    }
+
+    public CardIdentifier getIdentifier() {
+        return identifier;
+    }
 }

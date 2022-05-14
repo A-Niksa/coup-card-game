@@ -37,7 +37,7 @@ public class BotSelectionMenu extends Template {
     private JRadioButton coupLovingBotRadioButton;
     private JRadioButton paranoidBotRadioButton;
     private JRadioButton randomBotRadioButton;
-    private ArrayList<JRadioButton> botsRadioButtonsList;
+    public ArrayList<JRadioButton> botsRadioButtonsList;
 
     public BotSelectionMenu(MainFrame mainFrame) {
         super(mainFrame);

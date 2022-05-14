@@ -15,9 +15,9 @@ public class BotSelectionUtils {
     }
 
     public static void alignBotSelectionLabel(BotSelectionMenu selectionPanel, JLabel botSelectionLabel) {
+        botSelectionLabel.setOpaque(true);
         botSelectionLabel.setBounds(selectionPanel.X_BOT_SELECTION_LABEL, selectionPanel.Y_BOT_SELECTION_LABEL,
                 selectionPanel.BOT_SELECTION_WIDTH, selectionPanel.BOT_SELECTION_HEIGHT);
-        botSelectionLabel.setBackground(Color.WHITE);
         botSelectionLabel.setFont(new Font("", Font.BOLD, 15));
 
         selectionPanel.add(botSelectionLabel);
@@ -44,6 +44,22 @@ public class BotSelectionUtils {
     }
 
     public static void beginGameIfPossible(MainFrame mainFrame, BotSelectionMenu selectionPanel) {
+        ArrayList<JRadioButton> botsRadioButtonsList = selectionPanel.botsRadioButtonsList;
+
+        int numberOfCheckedRadioButtons = getNumberOfCheckedRadioButtons(botsRadioButtonsList);
+        if (numberOfCheckedRadioButtons != 3) {
+            JOptionPane.showMessageDialog(mainFrame, "You have to choose 3 bots.");
+            return;
+        }
+
         // TODO
+    }
+
+    private static int getNumberOfCheckedRadioButtons(ArrayList<JRadioButton> radioButtonsList) {
+        int count = 0;
+        for (JRadioButton button : radioButtonsList) {
+            if (button.isSelected()) count++;
+        }
+        return count;
     }
 }
