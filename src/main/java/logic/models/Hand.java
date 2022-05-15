@@ -55,6 +55,10 @@ public class Hand {
         }
     }
 
+    public void clearHand() {
+        cardsList.clear();
+    }
+
     public int getNumberOfCards() {
         return cardsList.size();
     }

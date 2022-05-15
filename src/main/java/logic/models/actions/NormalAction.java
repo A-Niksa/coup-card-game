@@ -5,13 +5,13 @@ import logic.models.Player;
 import logic.models.actions.cardutils.ActionToCardMapper;
 
 public class NormalAction extends Action {
-    public NormalAction(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier, Player actionPlayer) {
-        super(actionIdentifier, cardIdentifier, actionPlayer);
+    public NormalAction(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier, Player actionPlayer,
+                        Player targetPlayer) {
+        super(actionIdentifier, cardIdentifier, actionPlayer, targetPlayer, false, false);
     }
 
     @Override
     protected void resolveAction() {
-        Player affectedPlayer = counteredAction.getActionPlayer();
-        ActionToCardMapper.mapActionToCard(actionIdentifier, cardIdentifier, actionPlayer, affectedPlayer);
+        ActionToCardMapper.mapActionToCard(actionIdentifier, cardIdentifier, actionPlayer, targetPlayer);
     }
 }

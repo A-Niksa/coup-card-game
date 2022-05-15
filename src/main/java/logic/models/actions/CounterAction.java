@@ -5,10 +5,11 @@ import logic.models.Player;
 import logic.models.actions.cardutils.ActionToCardMapper;
 
 public class CounterAction extends Action {
+    private Action counteredAction;
 
     public CounterAction(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier, Player actionPlayer,
-                         Action counteredAction, boolean isCounterAction) {
-        super(actionIdentifier, cardIdentifier, actionPlayer, counteredAction, isCounterAction);
+                         Player targetPlayer) {
+        super(actionIdentifier, cardIdentifier, actionPlayer, targetPlayer, false, true);
     }
 
     @Override
@@ -18,8 +19,7 @@ public class CounterAction extends Action {
             return;
         }
 
-        Player affectedPlayer = counteredAction.getActionPlayer();
-        ActionToCardMapper.mapActionToCard(actionIdentifier, cardIdentifier, actionPlayer, affectedPlayer);
+        ActionToCardMapper.mapActionToCard(actionIdentifier, cardIdentifier, actionPlayer, targetPlayer);
 
         counteredAction.setShouldBeSkipped(true);
     }

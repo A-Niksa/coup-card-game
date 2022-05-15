@@ -4,15 +4,17 @@ import logic.models.CardIdentifier;
 import logic.models.Player;
 
 public class Challenge extends Action {
-    public Challenge(ActionIdentifier identifier, Player actionPlayer, Action challengedAction) {
-        super(identifier, actionPlayer, challengedAction);
+    private Action challengedAction;
+
+    public Challenge(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier, Player actionPlayer,
+                     Player targetPlayer) {
+        super(actionIdentifier, cardIdentifier, actionPlayer, targetPlayer, true, false);
     }
 
     @Override
     protected void resolveAction() {
         if (challengeIsCorrect()) {
-            Player challengedPlayer = challengedAction.getActionPlayer();
-            challengedPlayer.punishPlayer();
+            targetPlayer.punishPlayer();
 
             challengedAction.setShouldBeSkipped(true);
         } else {
@@ -25,5 +27,10 @@ public class Challenge extends Action {
 
     private boolean challengeIsCorrect() {
         return challengedAction.isBluff();
+    }
+
+    public void setChallengedAction(Action challengedAction) {
+        this.challengedAction = challengedAction;
+        isChallenge = true;
     }
 }

@@ -6,19 +6,18 @@ import logic.models.actions.ActionIdentifier;
 
 public class ActionToCardMapper {
     public static void mapActionToCard(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier,
-                                       Player actionPlayer, Player affectedPlayer) {
+                                       Player actionPlayer, Player targetPlayer) {
         switch (cardIdentifier) {
             case AMBASSADOR:
-                if (actionIdentifier == ActionIdentifier.EXCHANGE) {
-                    AmbassadorActions.exchangeCards(actionPlayer);
-                } else if (actionIdentifier == ActionIdentifier.EXTORTION_COUNTER) {
+                // note that exchange is handled separately since it requires selection of desired cards
+                if (actionIdentifier == ActionIdentifier.EXTORTION_COUNTER) {
                     AmbassadorActions.blockExtortion();
                 }
                 break;
 
             case ASSASSIN:
                 if (actionIdentifier == ActionIdentifier.ASSASSINATION) {
-                    AssassinActions.assassinate(affectedPlayer);
+                    AssassinActions.assassinate(targetPlayer);
                 }
                 break;
 
@@ -30,7 +29,7 @@ public class ActionToCardMapper {
 
             case CAPTAIN:
                 if (actionIdentifier == ActionIdentifier.EXTORTION) {
-                    CaptainActions.extort(actionPlayer, affectedPlayer);
+                    CaptainActions.extort(actionPlayer, targetPlayer);
                 } else if (actionIdentifier == ActionIdentifier.EXTORTION_COUNTER) {
                     CaptainActions.blockExtortion();
                 }

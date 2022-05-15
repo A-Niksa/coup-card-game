@@ -11,62 +11,29 @@ public abstract class Action {
     protected ActionIdentifier actionIdentifier;
     protected CardIdentifier cardIdentifier;
     protected Player actionPlayer;
+    protected Player targetPlayer;
     protected boolean isBluff;
-
     protected boolean isChallenge;
-    protected Action challengedAction;
-
     protected boolean isCounterAction;
-    protected Action counteredAction;
-
     protected boolean shouldBeSkipped; // used for skipping actions if they were bluffed and challenged
 
-    public Action(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier, Player actionPlayer) {
+    public Action(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier, Player actionPlayer,
+                  Player targetPlayer, boolean isChallenge, boolean isCounterAction) {
         this.actionIdentifier = actionIdentifier;
         this.cardIdentifier = cardIdentifier;
         this.actionPlayer = actionPlayer;
-        isBluff = determineIfActionIsBluff();
-
-        isChallenge = false;
-        challengedAction = null;
-        isCounterAction = false;
-        counteredAction = null;
-
-        shouldBeSkipped = false;
-    }
-
-    public Action(ActionIdentifier actionIdentifier, Player actionPlayer, Action challengedAction) {
-        this.actionIdentifier = actionIdentifier;
-        this.actionPlayer = actionPlayer;
-        this.challengedAction = challengedAction;
-        isChallenge = true;
-
-        isBluff = false; // bluff has no meaning if action is a challenge
-        isCounterAction = false;
-        counteredAction = null;
-
-        shouldBeSkipped = false;
-    }
-
-    public Action(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier,
-                  Player actionPlayer, Action counteredAction, boolean isCounterAction) {
-        this.actionIdentifier = actionIdentifier;
-        this.cardIdentifier = cardIdentifier;
-        this.actionPlayer = actionPlayer;
+        this.targetPlayer = targetPlayer;
+        this.isChallenge = isChallenge;
         this.isCounterAction = isCounterAction;
-        this.counteredAction = counteredAction;
+
         isBluff = determineIfActionIsBluff();
-
-        isChallenge = false;
-        challengedAction = null;
-
-        shouldBeSkipped = false;
+        shouldBeSkipped = false; // initial value at instantiation
     }
 
     protected abstract void resolveAction();
 
     private boolean determineIfActionIsBluff() {
-        // difference with the getter: this is used at instantiation and involves querying into the GameState
+        // difference with the isBluff getter: this is used at instantiation and involves querying into the GameState
         Hand handOfPlayer = actionPlayer.getHand();
         ArrayList<Card> cardsListOfPlayer = handOfPlayer.getCardsList();
 
@@ -129,10 +96,5 @@ public abstract class Action {
 
     public void setShouldBeSkipped(boolean shouldBeSkipped) {
         this.shouldBeSkipped = shouldBeSkipped;
-    }
-
-    public void setChallengedAction(Action challengedAction) {
-        this.challengedAction = challengedAction;
-        isChallenge = true;
     }
 }
