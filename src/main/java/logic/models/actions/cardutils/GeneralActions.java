@@ -1,20 +1,24 @@
 package logic.models.actions.cardutils;
 
 import logic.game.GameState;
+import logic.models.CardIdentifier;
+import logic.models.Hand;
 import logic.models.Player;
 
 public class GeneralActions {
-    public static void acquireIncome(Player actionPlayer) {
+    static void acquireIncome(Player actionPlayer) {
         int income = GameState.requestCoinsFromTreasury(1);
         actionPlayer.addCoinsToPlayer(income);
     }
 
-    public static void requestExternalHelp(Player actionPlayer) {
+    static void requestExternalHelp(Player actionPlayer) {
         int externalHelp = GameState.requestCoinsFromTreasury(2);
         actionPlayer.addCoinsToPlayer(externalHelp);
     }
 
-    public static void attemptCoup(Player actionPlayer) {
-        // TODO
+    public static void attemptCoup(Player targetPlayer, CardIdentifier targetCardIdentifier) {
+        // public, so that it can be accessed from CoupAction
+        Hand handOfTargetPlayer = targetPlayer.getHand();
+        handOfTargetPlayer.removeCard(targetCardIdentifier);
     }
 }

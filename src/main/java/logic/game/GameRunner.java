@@ -1,5 +1,7 @@
 package logic.game;
 
 public class GameRunner {
-    // TODO
+    public GameRunner() {
+        GameState.createNewGameState();
+    }
 }

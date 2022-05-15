@@ -1,9 +1,10 @@
-package logic.models.actions;
+package logic.models.actions.cardutils.specialutils;
 
 import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Player;
-import logic.models.actions.cardutils.ActionToCardMapper;
+import logic.models.actions.ActionIdentifier;
+import logic.models.actions.NormalAction;
 import logic.models.actions.cardutils.AmbassadorActions;
 
 import java.util.ArrayList;

@@ -39,6 +39,19 @@ public class Hand {
         cardsList.remove(cardIndex);
     }
 
+    public void removeCard(CardIdentifier identifier) {
+        Card card;
+
+        for (int i = 0; i < cardsList.size(); i++) {
+            card = cardsList.get(i);
+            if (card.getIdentifier() == identifier) {
+                removeCard(i);
+
+                return;
+            }
+        }
+    }
+
     public void swapCard(CardIdentifier identifier) {
         Card card;
 

@@ -36,6 +36,17 @@ public abstract class Player {
         numberOfCoins += numberOfCoinsToAdd;
     }
 
+    public int extortCoinsFromPlayer(int numberOfExtortionCoins) {
+        if (numberOfCoins - numberOfExtortionCoins >= 0) {
+            numberOfCoins -= numberOfExtortionCoins;
+            return numberOfExtortionCoins;
+        }
+
+        int numberOfRemainingCoins = numberOfCoins;
+        numberOfCoins = 0;
+        return numberOfRemainingCoins; // will return all coins of the extorted player if there aren't sufficient coins
+    }
+
     public Hand getHand() {
         return hand;
     }

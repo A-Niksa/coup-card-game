@@ -15,12 +15,6 @@ public class ActionToCardMapper {
                 }
                 break;
 
-            case ASSASSIN:
-                if (actionIdentifier == ActionIdentifier.ASSASSINATION) {
-                    AssassinActions.assassinate(targetPlayer);
-                }
-                break;
-
             case CONTESSA:
                 if (actionIdentifier == ActionIdentifier.ASSASSINATION_COUNTER) {
                     ContessaActions.blockAssassination();
@@ -42,6 +36,8 @@ public class ActionToCardMapper {
                     DukeActions.blockExternalHelp();
                 }
                 break;
+
+            // note that the ASSASSIN case is handled separately by AssassinationAction
 
             default:
                 if (actionIdentifier == ActionIdentifier.INCOME_ACQUISITION) {

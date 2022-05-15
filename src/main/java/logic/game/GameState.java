@@ -22,6 +22,24 @@ public class GameState {
     private GameState() {
     }
 
+    static void createNewGameState() {
+        getInstance().createNewPlayers();
+        getInstance().createNewComponents();
+        getInstance().createNewTools();
+    }
+
+    private void createNewPlayers() {
+        // TODO
+    }
+
+    private void createNewComponents() {
+        // TODO
+    }
+
+    private void createNewTools() {
+        // TODO
+    }
+
     private static GameState getInstance() {
         if (state == null) {
             state = new GameState();
