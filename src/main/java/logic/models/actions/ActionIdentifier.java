@@ -1,6 +1,7 @@
 package logic.models.actions;
 
 public enum ActionIdentifier {
+    SWAP_CARD("Swap Card"),
     INCOME_ACQUISITION("Income Acquisition"),
     EXTERNAL_HELP_REQUEST("External Help Request"),
     COUP("Coup"),

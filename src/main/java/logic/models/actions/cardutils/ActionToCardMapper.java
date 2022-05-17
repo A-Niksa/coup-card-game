@@ -43,10 +43,11 @@ public class ActionToCardMapper {
                 if (actionIdentifier == ActionIdentifier.INCOME_ACQUISITION) {
                     GeneralActions.acquireIncome(actionPlayer);
                 } else if (actionIdentifier == ActionIdentifier.EXTERNAL_HELP_REQUEST) {
-                    GeneralActions.acquireIncome(actionPlayer);
-                } else if (actionIdentifier == ActionIdentifier.COUP) {
-                    GeneralActions.acquireIncome(actionPlayer);
+                    GeneralActions.requestExternalHelp(actionPlayer);
+                } else if (actionIdentifier == ActionIdentifier.SWAP_CARD) {
+                    GeneralActions.swapPlayerCardRandomly(actionPlayer);
                 }
+                // coup is not included here since it is to be handled separately
         }
     }
 }

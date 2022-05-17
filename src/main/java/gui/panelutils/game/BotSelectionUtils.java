@@ -3,6 +3,7 @@ package gui.panelutils.game;
 import gui.MainFrame;
 import gui.game.BotSelectionMenu;
 import gui.menus.MainMenu;
+import utils.config.ConfigProcessor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,7 +53,21 @@ public class BotSelectionUtils {
             return;
         }
 
-        // TODO
+        saveSelectedBotsToConfigFile(selectionPanel);
+        // TODO: change the structure -> for importing config if desired
+    }
+
+    private static void saveSelectedBotsToConfigFile(BotSelectionMenu selectionPanel) {
+        ArrayList<JRadioButton> botsRadioButtonsList = selectionPanel.botsRadioButtonsList;
+
+        ArrayList<String> botNamesList = new ArrayList<>();
+        for (JRadioButton button : botsRadioButtonsList) {
+            if (button.isSelected()) {
+                botNamesList.add(button.getText());
+            }
+        }
+
+        ConfigProcessor.saveBotsToConfig(botNamesList);
     }
 
     private static int getNumberOfCheckedRadioButtons(ArrayList<JRadioButton> radioButtonsList) {

@@ -1,16 +1,16 @@
 package logic.models;
 
 import logic.game.GameState;
-import logic.models.actions.ActionIdentifier;
+import logic.models.actions.ActionsStack;
 
 import java.util.Random;
 
 public abstract class Player {
-    private int playerIndex;
-    private boolean isHuman;
-    private String playerName;
-    private int numberOfCoins;
-    private Hand hand;
+    protected int playerIndex;
+    protected boolean isHuman;
+    protected String playerName;
+    protected int numberOfCoins;
+    protected Hand hand;
 
     public Player(int playerIndex, boolean isHuman, String playerName) {
         this.playerIndex = playerIndex;
@@ -20,6 +20,12 @@ public abstract class Player {
         numberOfCoins = GameState.requestCoinsFromTreasury(2); // setting initial number of coins
         hand = GameState.getRandomHandFromDeck();
     }
+
+    public abstract void playNormalAction(ActionsStack stack);
+
+    public abstract void playCounterAction(ActionsStack stack);
+
+    public abstract void challenge(ActionsStack stack);
 
     public void swapRevealedCard(CardIdentifier identifier) { // swaps card with another card in the deck
         hand.swapCard(identifier);
@@ -47,8 +53,21 @@ public abstract class Player {
         return numberOfRemainingCoins; // will return all coins of the extorted player if there aren't sufficient coins
     }
 
+    public int reduceCoinsFromPlayer(int numberOfCoinsToReduce) {
+        if (numberOfCoins - numberOfCoinsToReduce >= 0) {
+            numberOfCoins -= numberOfCoinsToReduce;
+            return numberOfCoinsToReduce;
+        }
+
+        return 0;
+    }
+
     public Hand getHand() {
         return hand;
+    }
+
+    public int getPlayerIndex() {
+        return playerIndex;
     }
 
     public void setHand(Hand hand) {

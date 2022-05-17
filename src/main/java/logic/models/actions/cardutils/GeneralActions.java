@@ -21,4 +21,12 @@ public class GeneralActions {
         Hand handOfTargetPlayer = targetPlayer.getHand();
         handOfTargetPlayer.removeCard(targetCardIdentifier);
     }
+
+    static void swapPlayerCardRandomly(Player actionPlayer) {
+        int costOfAction = actionPlayer.reduceCoinsFromPlayer(1);
+        GameState.returnCoinToTreasury(costOfAction);
+
+        Hand handOfActionPlayer = actionPlayer.getHand();
+        handOfActionPlayer.swapRandomCard();
+    }
 }

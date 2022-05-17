@@ -21,4 +21,8 @@ public class ActionsStack {
     public void addToStack(Action action) {
         stackOfActions.addFirst(action);
     }
+
+    public Deque<Action> getStackOfActions() {
+        return stackOfActions;
+    }
 }

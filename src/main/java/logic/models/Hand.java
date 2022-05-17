@@ -4,11 +4,14 @@ import logic.game.GameState;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Hand {
+    private Random randomGenerator;
     private ArrayList<Card> cardsList;
 
     public Hand() {
+        randomGenerator = new Random();
         cardsList = new ArrayList<>();
     }
 
@@ -68,6 +71,13 @@ public class Hand {
         }
     }
 
+    public void swapRandomCard() {
+        int randomIndex = randomGenerator.nextInt(cardsList.size());
+        Card randomCardToSwap = cardsList.get(randomIndex);
+
+        swapCard(randomCardToSwap.getIdentifier());
+    }
+
     public void clearHand() {
         cardsList.clear();
     }
@@ -78,5 +88,15 @@ public class Hand {
 
     public ArrayList<Card> getCardsList() {
         return cardsList;
+    }
+
+    public ArrayList<CardIdentifier> getCardIdentifiersList() {
+        ArrayList<CardIdentifier> cardIdentifiersList = new ArrayList<>();
+
+        for (Card card : cardsList) {
+            cardIdentifiersList.add(card.getIdentifier());
+        }
+
+        return cardIdentifiersList;
     }
 }

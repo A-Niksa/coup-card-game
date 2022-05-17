@@ -3,6 +3,7 @@ package logic.game.components;
 import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Hand;
+import logic.models.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,6 +49,35 @@ public class Deck {
         hand.addCardsToHand(firstCard, secondCard);
 
         return hand;
+    }
+
+    public void chooseCardsFromExchangeCards(Card firstSelectedCard, Card secondSelectedCard,
+                                             ArrayList<Card> exchangeCardsList, Player player) {
+        Card card;
+        for (int i = 0; i < exchangeCardsList.size(); i++) {
+            card = exchangeCardsList.get(i);
+            if (card == firstSelectedCard || card == secondSelectedCard) {
+
+            }
+        }
+    }
+
+    private void returnCardsToDeck(ArrayList<Card> cardsToReturnList) {
+        for (Card card : cardsToReturnList) {
+            addCardToDeck(card);
+        }
+    }
+
+    public ArrayList<Card> getExchangeCards(Player player) {
+        ArrayList<Card> exchangeCardsList = new ArrayList<>();
+
+        exchangeCardsList.add(getRandomCard());
+        exchangeCardsList.add(getRandomCard());
+
+        ArrayList<Card> playerCardsList = player.getHand().getCardsList();
+        exchangeCardsList.addAll(playerCardsList);
+
+        return exchangeCardsList;
     }
 
     public Card getRandomCard() { // will also remove card from cardsList

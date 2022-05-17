@@ -6,9 +6,9 @@ import logic.models.Player;
 public class Challenge extends Action {
     private Action challengedAction;
 
-    public Challenge(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier, Player actionPlayer,
-                     Player targetPlayer) {
-        super(actionIdentifier, cardIdentifier, actionPlayer, targetPlayer, true, false);
+    public Challenge(Player actionPlayer, Player targetPlayer) {
+        super(ActionIdentifier.CHALLENGE, null, actionPlayer, targetPlayer, true,
+                false);
     }
 
     @Override

@@ -10,9 +10,8 @@ import logic.models.actions.cardutils.GeneralActions;
 public class CoupAction extends NormalAction {
     private CardIdentifier targetCardIdentifier;
 
-    public CoupAction(CardIdentifier cardIdentifier, Player actionPlayer, Player targetPlayer,
-                      CardIdentifier targetCardIdentifier) {
-        super(ActionIdentifier.COUP, cardIdentifier, actionPlayer, targetPlayer);
+    public CoupAction(Player actionPlayer, Player targetPlayer, CardIdentifier targetCardIdentifier) {
+        super(ActionIdentifier.COUP, null, actionPlayer, targetPlayer);
         this.targetCardIdentifier = targetCardIdentifier;
     }
 

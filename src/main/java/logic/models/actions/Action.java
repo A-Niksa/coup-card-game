@@ -78,12 +78,24 @@ public abstract class Action {
         return isBluff;
     }
 
+    public boolean isChallenge() {
+        return isChallenge;
+    }
+
+    public boolean isCounterAction() {
+        return isCounterAction;
+    }
+
     public boolean shouldBeSkipped() {
         return shouldBeSkipped;
     }
 
     public Player getActionPlayer() {
         return actionPlayer;
+    }
+
+    public Player getTargetPlayer() {
+        return targetPlayer;
     }
 
     public ActionIdentifier getActionIdentifier() {

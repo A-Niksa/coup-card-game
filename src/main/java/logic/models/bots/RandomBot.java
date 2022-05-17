@@ -3,37 +3,45 @@ package logic.models.bots;
 import logic.models.Player;
 import logic.models.actions.*;
 import logic.models.bots.botutils.PossibleActionsUtils;
+import logic.models.bots.botutils.RandomActionsUtils;
 
 import java.util.ArrayList;
 
-public class ParanoidBot extends Bot {
-    private boolean challengedInPreviousRound;
-
-    public ParanoidBot(int playerIndex, String name) {
+public class RandomBot extends Bot {
+    public RandomBot(int playerIndex, String name) {
         super(playerIndex, name);
-
-        challengedInPreviousRound = false;
     }
 
     @Override
     public void playNormalAction(ActionsStack stack) {
-        // will acquire 1 coin from the treasury
-        NormalAction incomeAcquisition = new NormalAction(ActionIdentifier.INCOME_ACQUISITION, null,
-                this, null);
-        stack.addToStack(incomeAcquisition);
+        if (randomBoolean()) {
+            NormalAction normalAction = RandomActionsUtils.getRandomSimpleAction(randomGenerator, this);
+            stack.addToStack(normalAction);
+        }
     }
 
     @Override
     public void playCounterAction(ActionsStack stack) {
-        // will do nothing
+        if (randomBoolean()) {
+            Action attackAction = PossibleActionsUtils.getAttackActionOnPlayer(this, stack);
+
+            if (attackAction != null) {
+                CounterAction counterAction = PossibleActionsUtils.getAppropriateCounterAction(this,
+                        attackAction);
+
+                if (counterAction != null) {
+                    stack.addToStack(counterAction);
+                }
+            }
+        }
     }
 
     @Override
     public void challenge(ActionsStack stack) {
-        if (!challengedInPreviousRound) {
+        if (randomBoolean()) {
             boolean thereHaveBeenTooManyChallenges = PossibleActionsUtils.thereHaveAlreadyBeenTooManyChallenges(stack);
 
-            if (thereHaveBeenTooManyChallenges) {
+            if (!thereHaveBeenTooManyChallenges) {
                 ArrayList<Player> challengableActionsPlayersList =
                         PossibleActionsUtils.getListOfChallengeableActionsPlayers(stack);
 
@@ -48,5 +56,9 @@ public class ParanoidBot extends Bot {
                 stack.addToStack(challenge);
             }
         }
+    }
+
+    private boolean randomBoolean() {
+        return RandomActionsUtils.getRandomBoolean(randomGenerator);
     }
 }

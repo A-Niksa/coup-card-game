@@ -15,4 +15,8 @@ public class Treasury {
 
         return 0; // the request was not possible in this case
     }
+
+    public void returnCoins(int numberOfCoinsToReturn) {
+        numberOfCoins += numberOfCoinsToReturn;
+    }
 }

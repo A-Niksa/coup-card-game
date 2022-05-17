@@ -3,7 +3,6 @@ package utils.config;
 import logic.models.CardIdentifier;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
 
 public class GameMetaData {
     ArrayList<PlayerIdentifier> playersList;
@@ -34,11 +33,19 @@ public class GameMetaData {
         }
     }
 
-    @Override
-    public String toString() {
-        return "GameMetaData{" +
-                "playersList=" + playersList +
-                ", handsOfPlayersList=" + handsOfPlayersList +
-                '}';
+    public void setPlayersList(ArrayList<PlayerIdentifier> playersList) {
+        this.playersList = playersList;
+    }
+
+    public void setHandsOfPlayersList(ArrayList<HandMetaData> handsOfPlayersList) {
+        this.handsOfPlayersList = handsOfPlayersList;
+    }
+
+    public ArrayList<PlayerIdentifier> getPlayersList() {
+        return playersList;
+    }
+
+    public ArrayList<HandMetaData> getHandsOfPlayersList() {
+        return handsOfPlayersList;
     }
 }

@@ -1,5 +1,6 @@
 package logic.game.tools;
 
+import logic.game.GameState;
 import logic.models.Hand;
 import logic.models.Player;
 
@@ -7,15 +8,11 @@ import java.util.ArrayList;
 
 public class EndgameChecker {
     // TODO: coordinating EndgameChecker with TurnKeeper for removing losers
-    private ArrayList<Player> playersList;
-
-    public EndgameChecker(ArrayList<Player> playersList) {
-        this.playersList = playersList;
-    }
 
     public boolean gameHasEnded() {
-        int numberOfPlayersWithoutCards = 0;
+        ArrayList<Player> playersList = GameState.getPlayersList();
 
+        int numberOfPlayersWithoutCards = 0;
         Hand handOfPlayer;
         for (Player player : playersList) {
             handOfPlayer = player.getHand();
