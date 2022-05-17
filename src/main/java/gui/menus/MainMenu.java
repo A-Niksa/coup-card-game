@@ -2,25 +2,15 @@ package gui.menus;
 
 import gui.MainFrame;
 import gui.Template;
-import gui.game.BotSelectionMenu;
-import gui.panelutils.GeneralUtils;
-import gui.panelutils.menus.MainMenuUtils;
+import gui.guiconfig.menus.MainMenuConfig;
+import gui.guiutils.GeneralUtils;
+import gui.guiutils.menus.MainMenuUtils;
 import utils.resources.ImageIdentifier;
 import utils.resources.ImageManager;
 
 import javax.swing.*;
 
 public class MainMenu extends Template {
-    public final int BUTTON_WIDTH = 180;
-    public final int BUTTON_HEIGHT = 40;
-    public final int LOGO_WIDTH = 389;
-    public final int LOGO_HEIGHT = 53;
-    public final int X_BUTTON = 390;
-    public final int Y_NEW_GAME_BUTTON = 255;
-    public final int Y_EXIT_BUTTON = 305;
-    public final int X_LOGO = 285;
-    public final int Y_LOGO = 150;
-
     private JLabel menuBackgroundImage;
     private JLabel gameLogoImage;
     private JButton newGameButton;
@@ -45,13 +35,16 @@ public class MainMenu extends Template {
 
     @Override
     protected void alignComponents() {
-        newGameButton.setBounds(X_BUTTON, Y_NEW_GAME_BUTTON, BUTTON_WIDTH, BUTTON_HEIGHT);
+        newGameButton.setBounds(MainMenuConfig.X_BUTTON, MainMenuConfig.Y_NEW_GAME_BUTTON, MainMenuConfig.BUTTON_WIDTH,
+                MainMenuConfig.BUTTON_HEIGHT);
         add(newGameButton);
 
-        exitButton.setBounds(X_BUTTON, Y_EXIT_BUTTON, BUTTON_WIDTH, BUTTON_HEIGHT);
+        exitButton.setBounds(MainMenuConfig.X_BUTTON, MainMenuConfig.Y_EXIT_BUTTON, MainMenuConfig.BUTTON_WIDTH,
+                MainMenuConfig.BUTTON_HEIGHT);
         add(exitButton);
 
-        gameLogoImage.setBounds(X_LOGO, Y_LOGO, LOGO_WIDTH, LOGO_HEIGHT);
+        gameLogoImage.setBounds(MainMenuConfig.X_LOGO, MainMenuConfig.Y_LOGO, MainMenuConfig.LOGO_WIDTH,
+                MainMenuConfig.LOGO_HEIGHT);
         add(gameLogoImage);
 
         GeneralUtils.alignBackground(mainFrame, this, menuBackgroundImage);

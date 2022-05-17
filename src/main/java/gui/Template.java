@@ -1,5 +1,7 @@
 package gui;
 
+import gui.guiconfig.frames.MainFrameConfig;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,7 +22,7 @@ public abstract class Template extends JPanel {
     }
 
     private void configurePanel() {
-        setSize(new Dimension(mainFrame.FRAME_WIDTH, mainFrame.FRAME_HEIGHT));
+        setSize(new Dimension(MainFrameConfig.FRAME_WIDTH, MainFrameConfig.FRAME_HEIGHT));
         setLayout(null);
     }
 

@@ -1,14 +1,12 @@
 package gui;
 
+import gui.guiconfig.frames.MainFrameConfig;
 import gui.menus.MainMenu;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    public final int FRAME_HEIGHT = 600;
-    public final int FRAME_WIDTH = 960;
-
     private JPanel currentPanel;
 
     public MainFrame() {
@@ -27,10 +25,11 @@ public class MainFrame extends JFrame {
     }
 
     private void configureFrame() {
-        setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+        setSize(new Dimension(MainFrameConfig.FRAME_WIDTH, MainFrameConfig.FRAME_HEIGHT));
         setVisible(true);
         setResizable(false);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     private void repaintFrame() {
