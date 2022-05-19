@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameState {
+    // TODO: logic for losses (returning coins to players, not doing so for cards, etc)
+    // TODO: mandatory coup at 10 coins
     private static GameState state;
 
     private ArrayList<Player> playersList;

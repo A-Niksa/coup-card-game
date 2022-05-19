@@ -1,7 +1,7 @@
 package gui.guiutils.popup;
 
-import gui.game.BotSelectionMenu;
-import gui.guiconfig.game.BotSelectionConfig;
+import gui.menus.BotSelectionMenu;
+import gui.guiconfig.menus.BotSelectionConfig;
 import gui.popup.DefaultOptionsPopup;
 
 import javax.swing.*;

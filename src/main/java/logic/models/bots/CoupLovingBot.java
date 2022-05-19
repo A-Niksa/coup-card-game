@@ -22,7 +22,7 @@ public class CoupLovingBot extends Bot {
                     null);
             stack.addToStack(taxation);
         } else {
-            Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator);
+            Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator, this);
 
             Card targetCard = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
             CardIdentifier targetCardIdentifier = targetCard.getIdentifier();

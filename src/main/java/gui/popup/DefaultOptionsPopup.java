@@ -1,6 +1,6 @@
 package gui.popup;
 
-import gui.game.BotSelectionMenu;
+import gui.menus.BotSelectionMenu;
 import gui.guiconfig.popup.DefaultOptionsConfig;
 import gui.guiutils.popup.DefaultOptionsUtils;
 

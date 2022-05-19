@@ -35,7 +35,7 @@ public class CautiousBot extends Bot {
     }
 
     private void assassinateRandomCard(ActionsStack stack) {
-        Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator);
+        Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator, this);
 
         Card targetCard = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
         CardIdentifier targetCardIdentifier = targetCard.getIdentifier();

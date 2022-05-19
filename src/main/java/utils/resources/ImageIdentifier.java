@@ -2,13 +2,16 @@ package utils.resources;
 
 public enum ImageIdentifier {
     MENU_BACKGROUND,
+    GAME_BACKGROUND,
     LOGO,
     HELP,
-    COIN,
+    PAUSE_ICON,
     AMBASSADOR,
     ASSSASSIN,
     CAPTAIN,
     CONTESSA,
     DUKE,
-    CARD_BACK
+    CARDBACK_VERTICAL_UTD,
+    CARDBACK_HORIZONTAL_LTR,
+    CARDBACK_HORIZONTAL_RTL
 }

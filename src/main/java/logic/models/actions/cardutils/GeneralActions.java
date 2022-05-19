@@ -24,9 +24,12 @@ public class GeneralActions {
 
     static void swapPlayerCardRandomly(Player actionPlayer) {
         int costOfAction = actionPlayer.reduceCoinsFromPlayer(1);
-        GameState.returnCoinToTreasury(costOfAction);
 
-        Hand handOfActionPlayer = actionPlayer.getHand();
-        handOfActionPlayer.swapRandomCard();
+        if (costOfAction == 1) { // player had sufficient coins
+            GameState.returnCoinToTreasury(costOfAction);
+
+            Hand handOfActionPlayer = actionPlayer.getHand();
+            handOfActionPlayer.swapRandomCard();
+        }
     }
 }

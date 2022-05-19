@@ -47,7 +47,7 @@ public class MainMenu extends Template {
                 MainMenuConfig.LOGO_HEIGHT);
         add(gameLogoImage);
 
-        GeneralUtils.alignBackground(mainFrame, this, menuBackgroundImage);
+        GeneralUtils.alignBackground(this, menuBackgroundImage);
     }
 
     @Override

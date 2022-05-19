@@ -28,9 +28,9 @@ public class GameStateBuilder {
     }
 
     static void createNewGameState() {
-        getInstance().createNewPlayers();
-        getInstance().createNewComponents();
         getInstance().createNewTools();
+        getInstance().createNewComponents();
+        getInstance().createNewPlayers();
 
         GameState.setIndexOfCurrentPlayer(0); // starts from 0 by default (so starts with human player)
     }
@@ -52,7 +52,7 @@ public class GameStateBuilder {
 
         ArrayList<Bot> botsList = new ArrayList<>();
         for (int i = 1; i <= identifiersOfBotsList.size(); i++) {
-            Bot bot = createBot(identifiersOfBotsList.get(i), i);
+            Bot bot = createBot(identifiersOfBotsList.get(i-1), i);
 
             if (bot != null) { // createBot returns null if it can't match the identifier to the desired bot
                 botsList.add(bot);

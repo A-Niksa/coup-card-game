@@ -13,6 +13,7 @@ public abstract class Player {
     protected String playerName;
     protected int numberOfCoins;
     protected Hand hand;
+    protected boolean hasLost;
 
     public Player(PlayerIdentifier playerIdentifier, int playerIndex, boolean isHuman, String playerName) {
         this.playerIdentifier = playerIdentifier;
@@ -22,6 +23,8 @@ public abstract class Player {
 
         numberOfCoins = GameState.requestCoinsFromTreasury(2); // setting initial number of coins
         hand = GameState.getHandFromDeck(this);
+
+        hasLost = false;
     }
 
     public abstract void playNormalAction(ActionsStack stack);
@@ -79,5 +82,17 @@ public abstract class Player {
 
     public void setHand(Hand hand) {
         this.hand = hand;
+    }
+
+    public boolean hasLost() {
+        return hasLost;
+    }
+
+    public void setHasLost(boolean hasLost) {
+        this.hasLost = hasLost;
+    }
+
+    public int getNumberOfCoins() {
+        return numberOfCoins;
     }
 }

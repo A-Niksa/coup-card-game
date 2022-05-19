@@ -1,6 +1,6 @@
 package logic.game.components;
 
-import gui.guiconfig.game.BotSelectionConfig;
+import gui.guiconfig.menus.BotSelectionConfig;
 import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Hand;

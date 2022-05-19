@@ -1,7 +1,5 @@
 package utils.config;
 
-import com.google.gson.stream.JsonWriter;
-
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -36,6 +34,7 @@ public class ConfigWriter extends ConfigManager {
 
     private void writeToMetaDataFileByInstance(GameMetaData gameMetaData) {
         try {
+            initializeWriter();
             writer.write(gson.toJson(gameMetaData));
             writer.close();
         } catch (IOException e) {

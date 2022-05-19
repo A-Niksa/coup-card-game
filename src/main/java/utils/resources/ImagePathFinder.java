@@ -2,14 +2,12 @@ package utils.resources;
 
 class ImagePathFinder {
     private final String cardsPath;
-    private final String componentsPath;
     private final String miscPath;
     private final String jpgSuffix;
     private final String pngSuffix;
 
     ImagePathFinder() {
         cardsPath = "images/cards/";
-        componentsPath = "images/components/";
         miscPath = "images/misc/";
         jpgSuffix = ".jpg";
         pngSuffix = ".png";
@@ -19,12 +17,14 @@ class ImagePathFinder {
         switch (identifier) {
             case MENU_BACKGROUND:
                 return formatPath(miscPath, "menubackground", jpgSuffix);
+            case GAME_BACKGROUND:
+                return formatPath(miscPath, "gamebackground", jpgSuffix);
             case HELP:
                 return formatPath(miscPath, "help", jpgSuffix);
             case LOGO:
                 return formatPath(miscPath, "logo", pngSuffix);
-            case COIN:
-                return formatPath(componentsPath, "coin", pngSuffix);
+            case PAUSE_ICON:
+                return formatPath(miscPath, "pauseicon", pngSuffix);
             case AMBASSADOR:
                 return formatPath(cardsPath, "ambassador", jpgSuffix);
             case ASSSASSIN:
@@ -35,8 +35,12 @@ class ImagePathFinder {
                 return formatPath(cardsPath, "contessa", jpgSuffix);
             case DUKE:
                 return formatPath(cardsPath, "duke", jpgSuffix);
-            case CARD_BACK:
-                return formatPath(cardsPath, "cardback", jpgSuffix);
+            case CARDBACK_VERTICAL_UTD:
+                return formatPath(cardsPath, "cardback_vertical_utd", pngSuffix);
+            case CARDBACK_HORIZONTAL_RTL:
+                return formatPath(cardsPath, "cardback_horizontal_rtl", pngSuffix);
+            case CARDBACK_HORIZONTAL_LTR:
+                return formatPath(cardsPath, "cardback_horizontal_ltr", pngSuffix);
             default:
                 return null;
         }

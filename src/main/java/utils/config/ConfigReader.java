@@ -4,6 +4,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class ConfigReader extends ConfigManager {
     private static ConfigReader readerMaster;
@@ -37,7 +38,14 @@ public class ConfigReader extends ConfigManager {
 
     private GameMetaData readFromMetaDataFileByInstance() {
         // TODO: possible IllegalStateException
+        initializeReader();
         GameMetaData gameMetaData = gson.fromJson(reader, GameMetaData.class);
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return gameMetaData;
     }
 }

@@ -17,6 +17,6 @@ public class AssassinationAction extends NormalAction {
 
     @Override
     protected void resolveAction() {
-        AssassinActions.assassinate(targetPlayer, targetCardIdentifier);
+        AssassinActions.assassinate(actionPlayer, targetPlayer, targetCardIdentifier);
     }
 }

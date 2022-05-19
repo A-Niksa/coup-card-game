@@ -36,4 +36,8 @@ public class LogHistory {
 
         consoleLogger.printLogToConsole(entry);
     }
+
+    public static ArrayList<LogEntry> getLogEntriesList() {
+        return getInstance().logEntriesList;
+    }
 }

@@ -11,11 +11,26 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomActionsUtils { // this class is not exclusive to the RandomBot and is to be used by all bots
-    public static Player getRandomPlayer(Random randomGenerator) {
+    public static Player getRandomPlayer(Random randomGenerator, Player currentPlayer) {
+        // gets random player except for the player itself
         ArrayList<Player> playersList = GameState.getPlayersList();
+        removePlayerFromList(currentPlayer, playersList);
 
         int randomIndex = randomGenerator.nextInt(playersList.size());
         return playersList.get(randomIndex);
+    }
+
+    private static void removePlayerFromList(Player playerToRemove, ArrayList<Player> playersList) {
+        Player player;
+        for (int i = 0; i < playersList.size(); i++) {
+            player = playersList.get(i);
+
+            if (player == playerToRemove) {
+                playersList.remove(i);
+
+                return;
+            }
+        }
     }
 
     public static Card getRandomCardOfPlayer(Random randomGenerator, Player player) {

@@ -1,7 +1,7 @@
 package gui.guiutils.menus;
 
 import gui.MainFrame;
-import gui.game.BotSelectionMenu;
+import gui.menus.BotSelectionMenu;
 
 public class MainMenuUtils {
     public static void goToBotSelectionMenu(MainFrame mainFrame) {
