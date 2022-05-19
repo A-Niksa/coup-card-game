@@ -1,1 +1,44 @@
-{"playersList":["CAUTIOUS","RANDOM","PARANOID"],"handsOfPlayersList":[{"playerIdentifier":"HUMAN","cardsList":["AMBASSADOR","CONTESSA"]},{"playerIdentifier":"CAUTIOUS","cardsList":["ASSASSIN","DUKE"]},{"playerIdentifier":"RANDOM","cardsList":["ASSASSIN","CONTESSA"]},{"playerIdentifier":"PARANOID","cardsList":["DUKE","DUKE"]},{"playerIdentifier":"COUP_LOVING","cardsList":["CONTESSA","CAPTAIN"]}]}
+{
+  "playersList": [
+    "CAUTIOUS",
+    "COUP_LOVING",
+    "RANDOM"
+  ],
+  "handsOfPlayersList": [
+    {
+      "playerIdentifier": "HUMAN",
+      "cardsList": [
+        "AMBASSADOR",
+        "CONTESSA"
+      ]
+    },
+    {
+      "playerIdentifier": "CAUTIOUS",
+      "cardsList": [
+        "ASSASSIN",
+        "DUKE"
+      ]
+    },
+    {
+      "playerIdentifier": "RANDOM",
+      "cardsList": [
+        "ASSASSIN",
+        "CONTESSA"
+      ]
+    },
+    {
+      "playerIdentifier": "PARANOID",
+      "cardsList": [
+        "DUKE",
+        "DUKE"
+      ]
+    },
+    {
+      "playerIdentifier": "COUP_LOVING",
+      "cardsList": [
+        "CONTESSA",
+        "CAPTAIN"
+      ]
+    }
+  ]
+}

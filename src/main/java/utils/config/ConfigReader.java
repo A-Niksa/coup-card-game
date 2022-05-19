@@ -36,6 +36,7 @@ public class ConfigReader extends ConfigManager {
     }
 
     private GameMetaData readFromMetaDataFileByInstance() {
+        // TODO: possible IllegalStateException
         GameMetaData gameMetaData = gson.fromJson(reader, GameMetaData.class);
         return gameMetaData;
     }

@@ -1,9 +1,11 @@
 package logic.game.components;
 
+import gui.guiconfig.game.BotSelectionConfig;
 import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Hand;
 import logic.models.Player;
+import utils.config.ConfigProcessor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +43,37 @@ public class Deck {
         cardsList.add(card);
     }
 
-    public Hand getRandomHand() {
+    public Hand getHand(Player player) {
+        if (BotSelectionConfig.shouldUseDefaultHands) {
+            return getDefaultHand(player);
+        } else { // should not use default hands === should use random hands
+            return getRandomHand();
+        }
+    }
+
+    private Hand getDefaultHand(Player player) { // gets default hands from game metadata config
+        ArrayList<CardIdentifier> cardIdentifiersOfPlayer = ConfigProcessor.getCardIdentifiersOfPlayer(player);
+
+        Card firstCard = getCardByIdentifier(cardIdentifiersOfPlayer.get(0));
+        Card secondCard = getCardByIdentifier(cardIdentifiersOfPlayer.get(1));
+
+        Hand hand = new Hand();
+        hand.addCardsToHand(firstCard, secondCard);
+
+        return hand;
+    }
+
+    private Card getCardByIdentifier(CardIdentifier identifier) {
+        for (Card card : cardsList) {
+            if (card.getIdentifier() == identifier) {
+                return card;
+            }
+        }
+
+        return getRandomCard(); // returns random card if card cannot be drawn from the deck
+    }
+
+    private Hand getRandomHand() {
         Card firstCard = getRandomCard();
         Card secondCard = getRandomCard();
 
@@ -51,16 +83,16 @@ public class Deck {
         return hand;
     }
 
-    public void chooseCardsFromExchangeCards(Card firstSelectedCard, Card secondSelectedCard,
-                                             ArrayList<Card> exchangeCardsList, Player player) {
-        Card card;
-        for (int i = 0; i < exchangeCardsList.size(); i++) {
-            card = exchangeCardsList.get(i);
-            if (card == firstSelectedCard || card == secondSelectedCard) {
-
-            }
-        }
-    }
+//    public void chooseCardsFromExchangeCards(Card firstSelectedCard, Card secondSelectedCard,
+//                                             ArrayList<Card> exchangeCardsList, Player player) {
+//        Card card;
+//        for (int i = 0; i < exchangeCardsList.size(); i++) {
+//            card = exchangeCardsList.get(i);
+//            if (card == firstSelectedCard || card == secondSelectedCard) {
+//
+//            }
+//        }
+//    }
 
     private void returnCardsToDeck(ArrayList<Card> cardsToReturnList) {
         for (Card card : cardsToReturnList) {

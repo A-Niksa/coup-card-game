@@ -1,11 +1,13 @@
 package gui.popup;
 
+import gui.game.BotSelectionMenu;
 import gui.guiconfig.popup.DefaultOptionsConfig;
 import gui.guiutils.popup.DefaultOptionsUtils;
 
 import javax.swing.*;
 
 public class DefaultOptionsPopup extends PopupTemplate {
+    private BotSelectionMenu botSelectionMenu;
     private JButton confirmButton;
     private JLabel defaultModeExplanationLabel;
     private JLabel gameInitialHandsLabel;
@@ -15,8 +17,10 @@ public class DefaultOptionsPopup extends PopupTemplate {
     private String[] gameBotsSelectionModeArray;
     private JComboBox<String> gameBotsSelectionModeBox;
 
-    public DefaultOptionsPopup() {
+    public DefaultOptionsPopup(BotSelectionMenu botSelectionMenu) {
+        this.botSelectionMenu = botSelectionMenu;
         initializeComboBoxArrays();
+
         drawPanel();
     }
 
@@ -69,6 +73,15 @@ public class DefaultOptionsPopup extends PopupTemplate {
 
     @Override
     protected void connectListeners() {
+        confirmButton.addActionListener(e -> DefaultOptionsUtils.changeGameInitialSettings(botSelectionMenu,
+                this));
+    }
 
+    public JComboBox<String> getGameInitialHandsModeBox() {
+        return gameInitialHandsModeBox;
+    }
+
+    public JComboBox<String> getGameBotsSelectionModeBox() {
+        return gameBotsSelectionModeBox;
     }
 }

@@ -1,5 +1,8 @@
 package utils.config;
 
+import logic.models.CardIdentifier;
+import logic.models.Player;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -77,5 +80,22 @@ public class ConfigProcessor {
         }
 
         return botsList;
+    }
+
+    public static ArrayList<CardIdentifier> getCardIdentifiersOfPlayer(Player player) {
+        GameMetaData gameMetaData = ConfigReader.readFromMetaDataFile();
+        return getInstance().getPlayerCardsList(gameMetaData, player);
+    }
+
+    private ArrayList<CardIdentifier> getPlayerCardsList(GameMetaData gameMetaData, Player player) {
+        ArrayList<HandMetaData> handsOfPlayersList = gameMetaData.getHandsOfPlayersList();
+
+        for (HandMetaData handMetaData : handsOfPlayersList) {
+            if (handMetaData.getPlayerIdentifier() == player.getPlayerIdentifier()) {
+                return handMetaData.getCardsList();
+            }
+        }
+
+        return null;
     }
 }

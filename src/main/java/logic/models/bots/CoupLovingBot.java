@@ -8,10 +8,11 @@ import logic.models.actions.ActionsStack;
 import logic.models.actions.NormalAction;
 import logic.models.actions.cardutils.specialutils.CoupAction;
 import logic.models.bots.botutils.RandomActionsUtils;
+import utils.config.PlayerIdentifier;
 
 public class CoupLovingBot extends Bot {
     public CoupLovingBot(int playerIndex, String name) {
-        super(playerIndex, name);
+        super(PlayerIdentifier.COUP_LOVING, playerIndex, name);
     }
 
     @Override

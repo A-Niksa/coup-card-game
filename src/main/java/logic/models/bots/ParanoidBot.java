@@ -3,6 +3,7 @@ package logic.models.bots;
 import logic.models.Player;
 import logic.models.actions.*;
 import logic.models.bots.botutils.PossibleActionsUtils;
+import utils.config.PlayerIdentifier;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public class ParanoidBot extends Bot {
     private boolean challengedInPreviousRound;
 
     public ParanoidBot(int playerIndex, String name) {
-        super(playerIndex, name);
+        super(PlayerIdentifier.PARANOID, playerIndex, name);
 
         challengedInPreviousRound = false;
     }

@@ -18,4 +18,7 @@ public class BotSelectionConfig {
     public static final int RADIO_BUTTON_HEIGHT = 40;
     public static final int RADIO_BUTTON_WIDTH = 200;
     public static final int RADIO_BUTTON_V_SPACE = 15; // vertical space between buttons
+
+    public static boolean shouldUseDefaultBots = false; // initially set to using user-selected bots
+    public static boolean shouldUseDefaultHands = false; // initially set to distribute player hands randomly
 }

@@ -13,4 +13,12 @@ public class HandMetaData {
         this.playerIdentifier = playerIdentifier;
         cardsList = new ArrayList<>(Arrays.asList(firstCard, secondCard));
     }
+
+    public PlayerIdentifier getPlayerIdentifier() {
+        return playerIdentifier;
+    }
+
+    public ArrayList<CardIdentifier> getCardsList() {
+        return cardsList;
+    }
 }

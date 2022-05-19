@@ -49,9 +49,9 @@ public class GameState {
         treasury.returnCoins(numberOfCoinsToReturn);
     }
 
-    public static Hand getRandomHandFromDeck() {
+    public static Hand getHandFromDeck(Player player) {
         Deck deck = getDeck();
-        return deck.getRandomHand();
+        return deck.getHand(player);
     }
 
     public static Card getRandomCardFromDeck() {

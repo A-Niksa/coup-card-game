@@ -7,9 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class PopupTemplate extends JPanel {
+    protected PopupFrame frame;
+
     public PopupTemplate() {
         configurePanel();
-        PopupFrame popupFrame = new PopupFrame(this);
+        this.frame = new PopupFrame(this);
     }
 
     private void configurePanel() {
@@ -30,4 +32,8 @@ public abstract class PopupTemplate extends JPanel {
     protected abstract void alignComponents();
 
     protected abstract void connectListeners();
+
+    public PopupFrame getFrame() {
+        return frame;
+    }
 }

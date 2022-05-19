@@ -10,12 +10,13 @@ import logic.models.actions.NormalAction;
 import logic.models.actions.cardutils.specialutils.AssassinationAction;
 import logic.models.actions.cardutils.specialutils.ExchangeAction;
 import logic.models.bots.botutils.RandomActionsUtils;
+import utils.config.PlayerIdentifier;
 
 import java.util.ArrayList;
 
 public class CautiousBot extends Bot {
     public CautiousBot(int playerIndex, String name) {
-        super(playerIndex, name);
+        super(PlayerIdentifier.CAUTIOUS, playerIndex, name);
     }
 
     @Override

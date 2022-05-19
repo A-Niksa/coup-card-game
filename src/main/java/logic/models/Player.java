@@ -2,23 +2,26 @@ package logic.models;
 
 import logic.game.GameState;
 import logic.models.actions.ActionsStack;
+import utils.config.PlayerIdentifier;
 
 import java.util.Random;
 
 public abstract class Player {
+    protected PlayerIdentifier playerIdentifier;
     protected int playerIndex;
     protected boolean isHuman;
     protected String playerName;
     protected int numberOfCoins;
     protected Hand hand;
 
-    public Player(int playerIndex, boolean isHuman, String playerName) {
+    public Player(PlayerIdentifier playerIdentifier, int playerIndex, boolean isHuman, String playerName) {
+        this.playerIdentifier = playerIdentifier;
         this.playerIndex = playerIndex;
         this.isHuman = isHuman;
         this.playerName = playerName;
 
         numberOfCoins = GameState.requestCoinsFromTreasury(2); // setting initial number of coins
-        hand = GameState.getRandomHandFromDeck();
+        hand = GameState.getHandFromDeck(this);
     }
 
     public abstract void playNormalAction(ActionsStack stack);
@@ -60,6 +63,10 @@ public abstract class Player {
         }
 
         return 0;
+    }
+
+    public PlayerIdentifier getPlayerIdentifier() {
+        return playerIdentifier;
     }
 
     public Hand getHand() {

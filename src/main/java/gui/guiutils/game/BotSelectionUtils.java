@@ -48,14 +48,36 @@ public class BotSelectionUtils {
     public static void beginGameIfPossible(MainFrame mainFrame, BotSelectionMenu selectionPanel) {
         ArrayList<JRadioButton> botsRadioButtonsList = selectionPanel.botsRadioButtonsList;
 
-        int numberOfCheckedRadioButtons = getNumberOfCheckedRadioButtons(botsRadioButtonsList);
-        if (numberOfCheckedRadioButtons != 3) {
-            JOptionPane.showMessageDialog(mainFrame, "You have to choose 3 bots.");
+        if (!correctNumberOfBotsAreSelected(mainFrame, selectionPanel, botsRadioButtonsList)) {
             return;
         }
 
-        saveSelectedBotsToConfigFile(selectionPanel);
+        if (!BotSelectionConfig.shouldUseDefaultBots) {
+            saveSelectedBotsToConfigFile(selectionPanel);
+        }
+
+
         // TODO: change the structure -> for importing config if desired
+    }
+
+    private static boolean correctNumberOfBotsAreSelected(MainFrame mainFrame, BotSelectionMenu selectionPanel,
+                                                              ArrayList<JRadioButton> botsRadioButtonsList) {
+        int numberOfCheckedRadioButtons = getNumberOfCheckedRadioButtons(botsRadioButtonsList);
+
+        if (BotSelectionConfig.shouldUseDefaultBots) {
+            if (numberOfCheckedRadioButtons > 0) {
+                JOptionPane.showMessageDialog(mainFrame, "The bots are set to be imported from the " +
+                        "configuration file. Please deselect all bots.");
+                return false;
+            }
+        } else {
+            if (numberOfCheckedRadioButtons != 3) {
+                JOptionPane.showMessageDialog(mainFrame, "You have to choose 3 bots.");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static void saveSelectedBotsToConfigFile(BotSelectionMenu selectionPanel) {

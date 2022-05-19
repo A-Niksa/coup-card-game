@@ -26,11 +26,9 @@ public class BotSelectionMenu extends Template {
     private JRadioButton randomBotRadioButton;
     public ArrayList<JRadioButton> botsRadioButtonsList;
 
-    private boolean shouldUseDefaultBots;
-    private boolean shouldUseDefaultHands;
-
     public BotSelectionMenu(MainFrame mainFrame) {
         super(mainFrame);
+
         drawPanel();
     }
 
@@ -79,23 +77,7 @@ public class BotSelectionMenu extends Template {
     @Override
     protected void connectListeners() {
         beginGameButton.addActionListener(e -> BotSelectionUtils.beginGameIfPossible(mainFrame, this));
-        defaultOptionsButton.addActionListener(e -> new DefaultOptionsPopup());
+        defaultOptionsButton.addActionListener(e -> new DefaultOptionsPopup(this));
         backButton.addActionListener(e -> BotSelectionUtils.goToMainMenu(mainFrame));
-    }
-
-    public boolean shouldUseDefaultBots() {
-        return shouldUseDefaultBots;
-    }
-
-    public void setShouldUseDefaultBots(boolean shouldUseDefaultBots) {
-        this.shouldUseDefaultBots = shouldUseDefaultBots;
-    }
-
-    public boolean shouldUseDefaultHands() {
-        return shouldUseDefaultHands;
-    }
-
-    public void setShouldUseDefaultHands(boolean shouldUseDefaultHands) {
-        this.shouldUseDefaultHands = shouldUseDefaultHands;
     }
 }

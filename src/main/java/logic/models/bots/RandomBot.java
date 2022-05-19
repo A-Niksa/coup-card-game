@@ -4,12 +4,13 @@ import logic.models.Player;
 import logic.models.actions.*;
 import logic.models.bots.botutils.PossibleActionsUtils;
 import logic.models.bots.botutils.RandomActionsUtils;
+import utils.config.PlayerIdentifier;
 
 import java.util.ArrayList;
 
 public class RandomBot extends Bot {
     public RandomBot(int playerIndex, String name) {
-        super(playerIndex, name);
+        super(PlayerIdentifier.RANDOM, playerIndex, name);
     }
 
     @Override

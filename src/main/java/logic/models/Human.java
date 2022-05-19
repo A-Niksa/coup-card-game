@@ -1,10 +1,11 @@
 package logic.models;
 
 import logic.models.actions.ActionsStack;
+import utils.config.PlayerIdentifier;
 
 public class Human extends Player {
     public Human(String playerName) {
-        super(0, true, playerName); // index of the human player is 0 by default
+        super(PlayerIdentifier.HUMAN, 0, true, playerName); // index of the human player is 0 by default
     }
 
     @Override
