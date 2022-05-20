@@ -1,8 +1,10 @@
 package gui.guiutils.game;
 
+import controllers.actioncommands.PassingTurnCommand;
 import gui.game.GamePanel;
 import gui.game.components.RectangularContainer;
 import gui.guiconfig.game.components.CommandsContainerConfig;
+import logic.game.GameState;
 
 import javax.swing.*;
 
@@ -23,5 +25,10 @@ public class GamePanelUtils {
         gamePanel.add(challengeButton);
         gamePanel.add(passButton);
         gamePanel.add(commandsContainer);
+    }
+
+    public static void passTurn() { // passes turn in each of the 3 stages in a round
+        PassingTurnCommand command = new PassingTurnCommand();
+        GameState.setCurrentCommandInController(command);
     }
 }

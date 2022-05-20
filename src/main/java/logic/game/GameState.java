@@ -1,23 +1,19 @@
 package logic.game;
 
+import controllers.HumanPlayerController;
+import controllers.actioncommands.Command;
 import logic.game.tools.EndgameChecker;
 import logic.game.tools.TurnKeeper;
 import logic.game.components.Deck;
 import logic.models.Card;
 import logic.models.Hand;
-import logic.models.Human;
 import logic.models.Player;
 import logic.game.components.Treasury;
-import logic.models.bots.*;
-import utils.config.ConfigProcessor;
-import utils.config.PlayerIdentifier;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class GameState {
-    // TODO: logic for losses (returning coins to players, not doing so for cards, etc)
-    // TODO: mandatory coup at 10 coins
     private static GameState state;
 
     private ArrayList<Player> playersList;
@@ -25,6 +21,7 @@ public class GameState {
     private Treasury treasury;
     private TurnKeeper turnKeeper;
     private EndgameChecker endgameChecker;
+    private HumanPlayerController controller;
 
     private Random randomGenerator;
     private int indexOfCurrentPlayer;
@@ -46,7 +43,7 @@ public class GameState {
         return treasury.requestCoins(numberOfRequestedCoins);
     }
 
-    public static void returnCoinToTreasury(int numberOfCoinsToReturn) {
+    public static void returnCoinsToTreasury(int numberOfCoinsToReturn) {
         Treasury treasury = getTreasury();
         treasury.returnCoins(numberOfCoinsToReturn);
     }
@@ -106,8 +103,38 @@ public class GameState {
         return getInstance().turnKeeper;
     }
 
+    public static HumanPlayerController getController() {
+        return getInstance().controller;
+    }
+
     public static int getIndexOfCurrentPlayer() {
-        return getInstance().indexOfCurrentPlayer;
+        return getInstance().getIndexOfCurrentPlayerByInstance();
+    }
+
+    private int getIndexOfCurrentPlayerByInstance() {
+        Player currentPlayer = playersList.get(indexOfCurrentPlayer);
+
+        while (currentPlayer.hasLost()) { // finding the first player who hasn't lost yet
+            indexOfCurrentPlayer = (indexOfCurrentPlayer + 1) % 4;
+            currentPlayer = playersList.get(indexOfCurrentPlayer);
+        }
+
+        return indexOfCurrentPlayer;
+    }
+
+    public static boolean humanHasChosenAction() {
+        HumanPlayerController controller = getController();
+        return controller.humanHasChosenAction();
+    }
+
+    public static void setHumanHasChosenAction(boolean humanHasChosenAction) {
+        HumanPlayerController controller = getController();
+        controller.setHumanHasChosenAction(humanHasChosenAction);
+    }
+
+    public static void setCurrentCommandInController(Command command) {
+        HumanPlayerController controller = getController();
+        controller.setCurrentCommand(command);
     }
 
     public static void setPlayersList(ArrayList<Player> playersList) {
@@ -124,6 +151,10 @@ public class GameState {
 
     public static void setTurnKeeper(TurnKeeper turnKeeper) {
         getInstance().turnKeeper = turnKeeper;
+    }
+
+    public static void setController(HumanPlayerController controller) {
+        getInstance().controller = controller;
     }
 
     public static void setEndgameChecker(EndgameChecker endgameChecker) {

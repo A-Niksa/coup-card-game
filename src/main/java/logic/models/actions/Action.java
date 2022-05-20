@@ -4,6 +4,8 @@ import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Hand;
 import logic.models.Player;
+import utils.config.PlayerIdentifier;
+import utils.logging.LogHistory;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,15 @@ public abstract class Action {
 
         isBluff = determineIfActionIsBluff();
         shouldBeSkipped = false; // initial value at instantiation
+
+        logAction();
+    }
+
+    private void logAction() {
+        PlayerIdentifier actionPlayerIdentifier = actionPlayer == null ? null : actionPlayer.getPlayerIdentifier();
+        PlayerIdentifier targetPlayerIdentifier = targetPlayer == null ? null : targetPlayer.getPlayerIdentifier();
+
+        LogHistory.log(actionPlayerIdentifier, targetPlayerIdentifier, actionIdentifier);
     }
 
     protected abstract void resolveAction();

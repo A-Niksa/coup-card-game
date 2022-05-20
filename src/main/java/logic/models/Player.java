@@ -95,4 +95,8 @@ public abstract class Player {
     public int getNumberOfCoins() {
         return numberOfCoins;
     }
+
+    public String getPlayerName() {
+        return playerName;
+    }
 }

@@ -1,7 +1,10 @@
 package logic.models.bots;
 
+import logic.models.Card;
+import logic.models.CardIdentifier;
 import logic.models.Player;
 import logic.models.actions.*;
+import logic.models.actions.cardutils.specialutils.CoupAction;
 import logic.models.bots.botutils.PossibleActionsUtils;
 import logic.models.bots.botutils.RandomActionsUtils;
 import utils.config.PlayerIdentifier;
@@ -15,6 +18,17 @@ public class RandomBot extends Bot {
 
     @Override
     public void playNormalAction(ActionsStack stack) {
+        if (numberOfCoins >= 10) {
+            Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator, this);
+
+            Card targetCard = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
+            CardIdentifier targetCardIdentifier = targetCard.getIdentifier();
+
+            CoupAction coup = new CoupAction(this, targetPlayer, targetCardIdentifier);
+
+            return;
+        }
+
         if (randomBoolean()) {
             NormalAction normalAction = RandomActionsUtils.getRandomSimpleAction(randomGenerator, this);
             stack.addToStack(normalAction);

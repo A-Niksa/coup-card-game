@@ -5,7 +5,6 @@ import gui.Template;
 import gui.game.GamePanel;
 import gui.guiconfig.menus.PauseMenuConfig;
 import gui.guiutils.GeneralUtils;
-import gui.guiutils.menus.PauseMenuUtils;
 import utils.resources.ImageIdentifier;
 import utils.resources.ImageManager;
 
@@ -55,7 +54,7 @@ public class PauseMenu extends Template {
     @Override
     protected void connectListeners() {
         resumeButton.addActionListener(e -> mainFrame.setCurrentPanel(gamePanel));
-        mainMenuButton.addActionListener(e -> PauseMenuUtils.goToMainMenu(mainFrame));
+        mainMenuButton.addActionListener(e -> GeneralUtils.goToMainMenu(mainFrame));
         exitGameButton.addActionListener(e -> System.exit(0));
     }
 }

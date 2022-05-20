@@ -6,12 +6,13 @@ import logic.models.Hand;
 import logic.models.Player;
 
 public class AssassinActions {
+    // TODO: removing targetCard
     public static void assassinate(Player actionPlayer, Player targetPlayer, CardIdentifier targetCardIdentifier) {
         // public, so that it can be accessed from AssassinationAction
         int costOfAction = actionPlayer.reduceCoinsFromPlayer(3);
 
         if (costOfAction == 3) { // player had sufficient coins
-            GameState.returnCoinToTreasury(costOfAction);
+            GameState.returnCoinsToTreasury(costOfAction);
 
             Hand handOfTargetPlayer = targetPlayer.getHand();
             handOfTargetPlayer.removeCard(targetCardIdentifier);

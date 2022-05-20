@@ -1,5 +1,6 @@
 package logic.game;
 
+import controllers.HumanPlayerController;
 import logic.game.components.Deck;
 import logic.game.components.Treasury;
 import logic.game.tools.EndgameChecker;
@@ -28,9 +29,9 @@ public class GameStateBuilder {
     }
 
     static void createNewGameState() {
-        getInstance().createNewTools();
         getInstance().createNewComponents();
         getInstance().createNewPlayers();
+        getInstance().createNewTools();
 
         GameState.setIndexOfCurrentPlayer(0); // starts from 0 by default (so starts with human player)
     }
@@ -95,8 +96,10 @@ public class GameStateBuilder {
     private void createNewTools() {
         TurnKeeper turnKeeper = new TurnKeeper();
         EndgameChecker endgameChecker = new EndgameChecker();
+        HumanPlayerController controller = new HumanPlayerController();
 
         GameState.setTurnKeeper(turnKeeper);
         GameState.setEndgameChecker(endgameChecker);
+        GameState.setController(controller);
     }
 }

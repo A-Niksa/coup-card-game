@@ -1,5 +1,7 @@
 package logic.models.actions;
 
+import gui.game.GamePanel;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -10,7 +12,7 @@ public class ActionsStack {
         stackOfActions = new ArrayDeque<>();
     }
 
-    public void resolveStack() {
+    public void resolveStack(GamePanel gamePanel) {
         for (Action action : stackOfActions) {
             if (!action.shouldBeSkipped()) { // used for filtering out challenged actions that have lost
                 action.resolveAction();

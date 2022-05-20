@@ -26,7 +26,7 @@ public class GeneralActions {
         int costOfAction = actionPlayer.reduceCoinsFromPlayer(1);
 
         if (costOfAction == 1) { // player had sufficient coins
-            GameState.returnCoinToTreasury(costOfAction);
+            GameState.returnCoinsToTreasury(costOfAction);
 
             Hand handOfActionPlayer = actionPlayer.getHand();
             handOfActionPlayer.swapRandomCard();

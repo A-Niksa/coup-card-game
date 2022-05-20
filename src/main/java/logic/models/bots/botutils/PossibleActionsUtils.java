@@ -5,7 +5,6 @@ import logic.models.Player;
 import logic.models.actions.*;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class PossibleActionsUtils {
     public static ArrayList<Player> getListOfChallengeableActionsPlayers(ActionsStack stack) {
@@ -16,7 +15,7 @@ public class PossibleActionsUtils {
             boolean isNormalAction = !(isCounterAction || action.isChallenge());
             boolean isAnUnchallengeableAction = action.getActionIdentifier() == ActionIdentifier.INCOME_ACQUISITION ||
                     action.getActionIdentifier() == ActionIdentifier.COUP ||
-                    action.getActionIdentifier() == ActionIdentifier.SWAP_CARD;
+                    action.getActionIdentifier() == ActionIdentifier.CARD_SWAP;
 
 
             if ((isNormalAction || isCounterAction) && !isAnUnchallengeableAction) {

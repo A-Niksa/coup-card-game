@@ -17,16 +17,14 @@ public class ActionToCardMapper {
 
             case CONTESSA:
                 if (actionIdentifier == ActionIdentifier.ASSASSINATION_COUNTER) {
-                    ContessaActions.blockAssassination();
+                    ContessaActions.blockAssassination(targetPlayer);
                 }
                 break;
 
             case CAPTAIN:
-                if (actionIdentifier == ActionIdentifier.EXTORTION) {
-                    CaptainActions.extort(actionPlayer, targetPlayer);
-                } else if (actionIdentifier == ActionIdentifier.EXTORTION_COUNTER) {
+                if (actionIdentifier == ActionIdentifier.EXTORTION_COUNTER) {
                     CaptainActions.blockExtortion();
-                }
+                } // extortion is handled separately. so it has not been listed here
                 break;
 
             case DUKE:
@@ -44,7 +42,7 @@ public class ActionToCardMapper {
                     GeneralActions.acquireIncome(actionPlayer);
                 } else if (actionIdentifier == ActionIdentifier.EXTERNAL_HELP_REQUEST) {
                     GeneralActions.requestExternalHelp(actionPlayer);
-                } else if (actionIdentifier == ActionIdentifier.SWAP_CARD) {
+                } else if (actionIdentifier == ActionIdentifier.CARD_SWAP) {
                     GeneralActions.swapPlayerCardRandomly(actionPlayer);
                 }
                 // coup is not included here since it is to be handled separately

@@ -54,7 +54,7 @@ public class RandomActionsUtils { // this class is not exclusive to the RandomBo
         simpleActionIdentifiersList.add(ActionIdentifier.INCOME_ACQUISITION);
         simpleActionIdentifiersList.add(ActionIdentifier.EXTERNAL_HELP_REQUEST);
         simpleActionIdentifiersList.add(ActionIdentifier.TAXATION);
-        simpleActionIdentifiersList.add(ActionIdentifier.SWAP_CARD);
+        simpleActionIdentifiersList.add(ActionIdentifier.CARD_SWAP);
 
         int randomIndex = randomGenerator.nextInt(simpleActionIdentifiersList.size());
         ActionIdentifier randomActionIdentifier = simpleActionIdentifiersList.get(randomIndex);
@@ -78,8 +78,8 @@ public class RandomActionsUtils { // this class is not exclusive to the RandomBo
                 action = new NormalAction(ActionIdentifier.TAXATION, CardIdentifier.CAPTAIN, actionPlayer,
                         null);
                 break;
-            case SWAP_CARD:
-                action = new NormalAction(ActionIdentifier.SWAP_CARD, null, actionPlayer, null);
+            case CARD_SWAP:
+                action = new NormalAction(ActionIdentifier.CARD_SWAP, null, actionPlayer, null);
                 break;
             default:
                 action = null;

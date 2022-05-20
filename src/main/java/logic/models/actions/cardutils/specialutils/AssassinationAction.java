@@ -1,6 +1,8 @@
 package logic.models.actions.cardutils.specialutils;
 
+import controllers.ConditionCheckingUtils;
 import logic.models.CardIdentifier;
+import logic.models.Human;
 import logic.models.Player;
 import logic.models.actions.ActionIdentifier;
 import logic.models.actions.NormalAction;

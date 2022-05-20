@@ -11,6 +11,10 @@ public class LogPopup extends PopupTemplate {
     private String concatenatedLogEntries;
     private JTextArea logTextArea;
 
+    public LogPopup() {
+        drawPanel();
+    }
+
     @Override
     protected void initializeComponents() {
         logEntriesList = LogHistory.getLogEntriesList();

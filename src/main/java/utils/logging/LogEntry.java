@@ -16,8 +16,14 @@ public class LogEntry {
     }
 
     public String getLogEntryString() {
-        String logEntryString = actionPlayerIdentifier + " -> " + affectedPlayerIdentifier + ": " +
-                actionIdentifier;
+        String actionPlayerString, affectedPlayerString, actionString;
+
+        actionPlayerString = actionPlayerIdentifier == null ? "-" : actionPlayerIdentifier.toString();
+        affectedPlayerString = affectedPlayerIdentifier == null ? "-" : affectedPlayerIdentifier.toString();
+        actionString = actionIdentifier == null ? "Passed Round" : actionIdentifier.toString();
+
+        String logEntryString = actionPlayerString + " -> " + affectedPlayerString + ": " +
+                actionString;
 
         return logEntryString;
     }

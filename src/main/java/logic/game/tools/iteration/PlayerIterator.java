@@ -18,7 +18,13 @@ public class PlayerIterator implements Iterator<Player> {
     private int numberOfIteratedPlayers;
 
     public PlayerIterator(int currentTurnIndex, ArrayList<Player> playersList, IterationType type) {
-        this.currentTurnIndex = currentTurnIndex;
+        if (type == IterationType.ALL_PLAYERS) {
+            this.currentTurnIndex = currentTurnIndex;
+        } else {
+            this.currentTurnIndex = currentTurnIndex + 1;
+        }
+
+
         this.playersList = playersList;
         this.type = type;
 
@@ -28,10 +34,10 @@ public class PlayerIterator implements Iterator<Player> {
     @Override
     public boolean hasNext() {
         if (type == IterationType.ALL_PLAYERS) {
-            return numberOfIteratedPlayers <= 4;
+            return ++numberOfIteratedPlayers <= 4;
         }
 
-        return numberOfIteratedPlayers <= 3;
+        return ++numberOfIteratedPlayers <= 3;
     }
 
     @Override

@@ -8,6 +8,7 @@ import logic.models.actions.ActionIdentifier;
 import logic.models.actions.ActionsStack;
 import logic.models.actions.NormalAction;
 import logic.models.actions.cardutils.specialutils.AssassinationAction;
+import logic.models.actions.cardutils.specialutils.CoupAction;
 import logic.models.actions.cardutils.specialutils.ExchangeAction;
 import logic.models.bots.botutils.RandomActionsUtils;
 import utils.config.PlayerIdentifier;
@@ -21,13 +22,24 @@ public class CautiousBot extends Bot {
 
     @Override
     public void playNormalAction(ActionsStack stack) {
+        if (numberOfCoins >= 10) {
+            Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator, this);
+
+            Card targetCard = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
+            CardIdentifier targetCardIdentifier = targetCard.getIdentifier();
+
+            CoupAction coup = new CoupAction(this, targetPlayer, targetCardIdentifier);
+
+            return;
+        }
+
         if (hasCard(CardIdentifier.ASSASSIN)) {
             assassinateRandomCard(stack);
         } else {
             if (hasCard(CardIdentifier.AMBASSADOR)) {
                 tryToExchangeWithAssassin(stack);
             } else {
-                NormalAction cardsSwap = new NormalAction(ActionIdentifier.SWAP_CARD, null, this,
+                NormalAction cardsSwap = new NormalAction(ActionIdentifier.CARD_SWAP, null, this,
                         null);
                 stack.addToStack(cardsSwap);
             }
@@ -46,20 +58,23 @@ public class CautiousBot extends Bot {
     }
 
     private void tryToExchangeWithAssassin(ActionsStack stack) {
-        Card firstSelectedCard, secondSelectedCard;
+        ArrayList<Card> selectedCardsList = new ArrayList<>();
 
+        ArrayList<Card> currentCardsOfPlayerList = hand.getCardsList();
         ArrayList<Card> exchangeCardsList = GameState.getExchangeCardsFromDeck(this);
 
         Card possibleAssassinCard = returnCardIfInList(CardIdentifier.ASSASSIN, exchangeCardsList);
         if (possibleAssassinCard != null) {
-            firstSelectedCard = possibleAssassinCard;
-            secondSelectedCard = getCardOtherThanAmbassador();
+            selectedCardsList.add(possibleAssassinCard);
+
+            if (currentCardsOfPlayerList.size() == 2) {
+                selectedCardsList.add(getCardOtherThanAmbassador());
+            }
         } else {
-            firstSelectedCard = hand.getCardsList().get(0);
-            secondSelectedCard = hand.getCardsList().get(1);
+            selectedCardsList = currentCardsOfPlayerList;
         }
 
-        ExchangeAction exchange = new ExchangeAction(this, firstSelectedCard, secondSelectedCard);
+        ExchangeAction exchange = new ExchangeAction(this, selectedCardsList);
         stack.addToStack(exchange);
     }
 

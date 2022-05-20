@@ -1,5 +1,6 @@
 package logic.game;
 
+import gui.game.GamePanel;
 import logic.game.tools.iteration.PlayerIterable;
 import logic.game.tools.iteration.PlayerIterator;
 import logic.models.Player;
@@ -7,25 +8,38 @@ import logic.models.actions.ActionsStack;
 
 import java.util.ArrayList;
 
-public class GameRunner {
-    public GameRunner() {
+public class GameRunner implements Runnable {
+    private GamePanel gamePanel;
+    private ActionsStack stack;
+
+    public GameRunner(GamePanel gamePanel) {
         GameStateBuilder.createNewGameState();
+        this.gamePanel = gamePanel;
     }
 
     public void run() {
-        while (!GameState.gameHasEnded()) { // each iteration corresponds to a round
+        while (!GameState.gameHasEnded()) { // each iteration corresponds to a round (and each round has 3 stages)
             int currentTurnIndex = GameState.getIndexOfCurrentPlayer();
             Player currentPlayer = GameState.getCurrentPlayerFromTurnKeeper();
 
-            ActionsStack stack = new ActionsStack();
+            stack = new ActionsStack();
+
+            if (currentTurnIndex != 0) { // in this case, the current player is a bot
+                suspendProgram(800);
+            }
+
             currentPlayer.playNormalAction(stack);
-            suspend(1000);
+            gamePanel.updatePanel();
 
             askPlayersIfTheyWantToPlayCounterAction(currentTurnIndex, stack);
             askPlayersIfTheyWantToChallenge(currentTurnIndex, stack);
 
+            stack.resolveStack(gamePanel);
+
             GameState.advanceTurnInTurnKeeper();
         }
+
+        gamePanel.finishGameAndShowWinner();
     }
 
     private void askPlayersIfTheyWantToPlayCounterAction(int currentTurnIndex, ActionsStack stack) {
@@ -33,8 +47,13 @@ public class GameRunner {
         PlayerIterable partialIterable = getNewIterableForAllExceptCurrentPlayer(currentTurnIndex);
 
         for (Player player : partialIterable) {
-            player.playCounterAction(stack);
-            suspend(1000);
+            if (!player.hasLost()) {
+                System.out.println("*" + player.getPlayerIdentifier());
+                suspendProgram(800);
+                player.playCounterAction(stack);
+
+                gamePanel.updatePanel();
+            }
         }
     }
 
@@ -43,8 +62,13 @@ public class GameRunner {
         PlayerIterable iterable = getNewIterableForAll(currentTurnIndex);
 
         for (Player player : iterable) {
-            player.challenge(stack);
-            suspend(1000);
+            if (!player.hasLost()) {
+                System.out.println("**" + player.getPlayerIdentifier());
+                suspendProgram(800);
+                player.challenge(stack);
+
+                gamePanel.updatePanel();
+            }
         }
     }
 
@@ -61,11 +85,15 @@ public class GameRunner {
                 PlayerIterator.IterationType.ALL_PLAYERS_EXCEPT_CURRENT_PLAYER);
     }
 
-    private void suspend(int milliseconds) {
+    private void suspendProgram(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public ActionsStack getStack() {
+        return stack;
     }
 }

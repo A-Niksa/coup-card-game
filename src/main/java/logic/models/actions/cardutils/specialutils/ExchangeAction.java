@@ -13,9 +13,9 @@ import java.util.Arrays;
 public class ExchangeAction extends NormalAction {
     private ArrayList<Card> selectedCardsList;
 
-    public ExchangeAction(Player actionPlayer, Card firstSelectedCard, Card secondSelectedCard) {
+    public ExchangeAction(Player actionPlayer, ArrayList<Card> selectedCardsList) {
         super(ActionIdentifier.EXCHANGE, CardIdentifier.AMBASSADOR, actionPlayer, null);
-        selectedCardsList = new ArrayList<>(Arrays.asList(firstSelectedCard, secondSelectedCard));
+        this.selectedCardsList = selectedCardsList;
     }
 
     @Override

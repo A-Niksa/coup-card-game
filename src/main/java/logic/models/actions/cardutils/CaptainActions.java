@@ -3,7 +3,8 @@ package logic.models.actions.cardutils;
 import logic.models.Player;
 
 public class CaptainActions {
-    static void extort(Player actionPlayer, Player targetPlayer) {
+    public static void extort(Player actionPlayer, Player targetPlayer) {
+        // public, so that it can be accessed by ExtortionAction
         int extortedCoins = targetPlayer.extortCoinsFromPlayer(2);
         actionPlayer.addCoinsToPlayer(extortedCoins);
     }

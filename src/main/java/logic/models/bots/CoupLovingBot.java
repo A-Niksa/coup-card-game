@@ -17,6 +17,8 @@ public class CoupLovingBot extends Bot {
 
     @Override
     public void playNormalAction(ActionsStack stack) {
+        // this bot will attempt coup anyway. so there's no need for adding mandatory coups at 10 coins
+
         if (numberOfCoins < 7) {
             NormalAction taxation = new NormalAction(ActionIdentifier.TAXATION, CardIdentifier.DUKE,this,
                     null);
