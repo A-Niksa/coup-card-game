@@ -3,6 +3,7 @@ package gui.popup;
 import gui.MainFrame;
 import gui.guiconfig.popup.ActionsPopupConfig;
 import gui.guiutils.popup.ActionsPopupUtils;
+import gui.guiutils.popup.SpecialActionsOpenerUtils;
 import logic.models.CardIdentifier;
 import logic.models.actions.ActionsStack;
 
@@ -28,6 +29,7 @@ public class ActionsPopup extends PopupTemplate {
     private ArrayList<JButton> buttonsList;
 
     public ActionsPopup(MainFrame mainFrame, ActionsStack stack) {
+        super(ConstructorMode.OPEN_NEW_FRAME);
         this.mainFrame = mainFrame;
         this.stack = stack;
 
@@ -84,13 +86,26 @@ public class ActionsPopup extends PopupTemplate {
 
     @Override
     protected void connectListeners() {
-        randomCardSwapButton.addActionListener(e -> ActionsPopupUtils.swapCardRandomly(mainFrame, this));
-        acquireIncomeButton.addActionListener(e -> ActionsPopupUtils.acquireIncome(this));
-        requestHelpButton.addActionListener(e -> ActionsPopupUtils.requestExternalHelp(this));
-        acquireTaxButton.addActionListener(e -> ActionsPopupUtils.acquireTax(this));
-        blockAssassinationButton.addActionListener(e -> ActionsPopupUtils.counterAssassination(mainFrame,
+        randomCardSwapButton.addActionListener(e -> ActionsPopupUtils.swapCardRandomly(frame, this));
+        acquireIncomeButton.addActionListener(e -> ActionsPopupUtils.acquireIncome(frame, this));
+        requestHelpButton.addActionListener(e -> ActionsPopupUtils.requestExternalHelp(frame, this));
+        acquireTaxButton.addActionListener(e -> ActionsPopupUtils.acquireTax(frame, this));
+        blockAssassinationButton.addActionListener(e -> ActionsPopupUtils.blockAssassination(frame,this,
+                stack));
+        blockHelpRequestButton.addActionListener(e -> ActionsPopupUtils.blockExternalHelp(frame, this,
+                stack));
+        blockExtortionAsAmbassadorButton.addActionListener(e -> ActionsPopupUtils.blockExtortion(frame, this,
+                CardIdentifier.AMBASSADOR, stack));
+        blockExtortionAsCaptainButton.addActionListener(e -> ActionsPopupUtils.blockExtortion(frame, this,
+                CardIdentifier.CAPTAIN, stack));
+
+        exchangeCardsButton.addActionListener(e -> SpecialActionsOpenerUtils.goToExchangePopup(frame, this,
+                stack));
+        assassinateOpponentButton.addActionListener(e -> SpecialActionsOpenerUtils.goToAssassinationPopup(frame,
                 this, stack));
-        blockExtortionAsAmbassadorButton.addActionListener(e -> ActionsPopupUtils.blockExtortion(mainFrame,
-                this, CardIdentifier.AMBASSADOR, stack));
+        attemptCoupButton.addActionListener(e -> SpecialActionsOpenerUtils.goToCoupPopup(frame, this,
+                stack));
+        extortOpponentButton.addActionListener(e -> SpecialActionsOpenerUtils.goToExtortionPopup(frame, this,
+                stack));
     }
 }

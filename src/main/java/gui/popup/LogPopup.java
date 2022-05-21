@@ -12,6 +12,7 @@ public class LogPopup extends PopupTemplate {
     private JTextArea logTextArea;
 
     public LogPopup() {
+        super(ConstructorMode.OPEN_NEW_FRAME);
         drawPanel();
     }
 

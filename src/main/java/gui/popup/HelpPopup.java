@@ -12,6 +12,7 @@ public class HelpPopup extends PopupTemplate {
     private JLabel helpImage;
 
     public HelpPopup() {
+        super(ConstructorMode.OPEN_NEW_FRAME);
         drawPanel();
     }
 

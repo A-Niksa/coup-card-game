@@ -6,11 +6,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PopupFrame extends JFrame {
+    private PopupTemplate panel;
 
     public PopupFrame(PopupTemplate panel) {
+        this.panel = panel;
         getContentPane().add(panel);
 
         configureFrame();
+        repaintFrame();
+    }
+
+    public void setCurrentPanel(PopupTemplate panel) {
+        this.panel = panel;
+        getContentPane().removeAll();
+        getContentPane().add(this.panel);
+
         repaintFrame();
     }
 

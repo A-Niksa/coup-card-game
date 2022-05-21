@@ -18,6 +18,7 @@ public class DefaultOptionsPopup extends PopupTemplate {
     private JComboBox<String> gameBotsSelectionModeBox;
 
     public DefaultOptionsPopup(BotSelectionMenu botSelectionMenu) {
+        super(ConstructorMode.OPEN_NEW_FRAME);
         this.botSelectionMenu = botSelectionMenu;
         initializeComboBoxArrays();
 

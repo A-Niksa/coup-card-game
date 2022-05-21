@@ -14,6 +14,16 @@ public class ConditionCheckingUtils {
         return numberOfRequiredCoins <= humanPlayer.getNumberOfCoins();
     }
 
+    public static boolean thereHasBeenExternalHelpRequest(ActionsStack stack) {
+        for (Action action : stack.getStackOfActions()) {
+            if (action.getActionIdentifier() == ActionIdentifier.EXTERNAL_HELP_REQUEST) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static boolean humanIsTargetOfAction(ActionIdentifier actionIdentifier, ActionsStack stack) {
         Player humanPlayer = getHumanPlayer();
 

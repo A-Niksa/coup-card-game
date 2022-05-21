@@ -7,11 +7,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class PopupTemplate extends JPanel {
-    protected PopupFrame frame;
+    public enum ConstructorMode {
+        OPEN_NEW_FRAME,
+        KEEP_EXISTING_FRAME
+    }
 
-    public PopupTemplate() {
+    protected PopupFrame frame;
+    protected ConstructorMode mode;
+
+    public PopupTemplate(ConstructorMode mode) {
         configurePanel();
-        this.frame = new PopupFrame(this);
+        this.mode = mode;
+
+        if (mode == ConstructorMode.OPEN_NEW_FRAME) {
+            this.frame = new PopupFrame(this);
+        }
     }
 
     private void configurePanel() {
