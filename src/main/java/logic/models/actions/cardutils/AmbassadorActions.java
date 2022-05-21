@@ -4,6 +4,9 @@ import logic.game.GameState;
 import logic.models.Card;
 import logic.models.Hand;
 import logic.models.Player;
+import logic.models.actions.ActionIdentifier;
+import utils.logging.ActionState;
+import utils.logging.LogHistory;
 
 import java.util.ArrayList;
 
@@ -16,6 +19,9 @@ public class AmbassadorActions {
         Hand handOfPlayer = actionPlayer.getHand();
         handOfPlayer.clearHand();
         handOfPlayer.addCardsToHand(firstCard, secondCard);
+
+        LogHistory.log(actionPlayer.getPlayerIdentifier(), null, ActionIdentifier.EXCHANGE,
+                ActionState.SUCCESSFUL);
     }
 
     static void blockExtortion() {

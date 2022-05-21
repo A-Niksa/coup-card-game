@@ -10,6 +10,9 @@ import logic.models.Player;
 import logic.models.actions.ActionIdentifier;
 import logic.models.actions.ActionsStack;
 import utils.config.PlayerIdentifier;
+import utils.logging.GameStateEntry;
+import utils.logging.GameStateHistory;
+import utils.logging.GameStateIdentifier;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -140,6 +143,28 @@ public class ActionsPopupUtils {
     public static boolean checkIfShouldAttemptCoup(PopupFrame frame) {
         if (ConditionCheckingUtils.humanHasEnoughCoins(10)) {
             JOptionPane.showMessageDialog(frame, "You have 10 or more coins. You have to attempt coup.");
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean checkIfShouldMakeCounterAction(PopupFrame frame) {
+        GameStateEntry latestEntry = GameStateHistory.getLatestGameStateEntry();
+
+        if (latestEntry.getGameState() == GameStateIdentifier.COUNTER_ACTIONS) {
+            JOptionPane.showMessageDialog(frame, "You should play a counter action.");
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean checkIfShouldMakeNormalAction(PopupFrame frame) {
+        GameStateEntry latestEntry = GameStateHistory.getLatestGameStateEntry();
+
+        if (latestEntry.getGameState() == GameStateIdentifier.NORMAL_ACTIONS) {
+            JOptionPane.showMessageDialog(frame, "You should play a normal action.");
             return true;
         }
 

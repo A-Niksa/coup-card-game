@@ -42,7 +42,7 @@ public class PlayerIterator implements Iterator<Player> {
 
     @Override
     public Player next() {
-        Player nextPlayer = playersList.get(currentTurnIndex);
+        Player nextPlayer = playersList.get((currentTurnIndex) % 4);
         currentTurnIndex = (currentTurnIndex + 1) % 4;
 
         return nextPlayer;

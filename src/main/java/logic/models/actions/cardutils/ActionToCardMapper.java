@@ -7,6 +7,18 @@ import logic.models.actions.ActionIdentifier;
 public class ActionToCardMapper {
     public static void mapActionToCard(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier,
                                        Player actionPlayer, Player targetPlayer) {
+        if (cardIdentifier == null) {
+            if (actionIdentifier == ActionIdentifier.INCOME_ACQUISITION) {
+                GeneralActions.acquireIncome(actionPlayer);
+            } else if (actionIdentifier == ActionIdentifier.EXTERNAL_HELP_REQUEST) {
+                GeneralActions.requestExternalHelp(actionPlayer);
+            } else if (actionIdentifier == ActionIdentifier.CARD_SWAP) {
+                GeneralActions.swapPlayerCardRandomly(actionPlayer);
+            }
+
+            return;
+        }
+
         switch (cardIdentifier) {
             case AMBASSADOR:
                 // note that exchange is handled separately since it requires selection of desired cards
@@ -17,13 +29,13 @@ public class ActionToCardMapper {
 
             case CONTESSA:
                 if (actionIdentifier == ActionIdentifier.ASSASSINATION_COUNTER) {
-                    ContessaActions.blockAssassination(targetPlayer);
+                    ContessaActions.blockAssassination(actionPlayer, targetPlayer);
                 }
                 break;
 
             case CAPTAIN:
                 if (actionIdentifier == ActionIdentifier.EXTORTION_COUNTER) {
-                    CaptainActions.blockExtortion();
+                    CaptainActions.blockExtortion(actionPlayer);
                 } // extortion is handled separately. so it has not been listed here
                 break;
 
@@ -31,7 +43,7 @@ public class ActionToCardMapper {
                 if (actionIdentifier == ActionIdentifier.TAXATION) {
                     DukeActions.getTax(actionPlayer);
                 } else if (actionIdentifier == ActionIdentifier.EXTERNAL_HELP_REQUEST_COUNTER) {
-                    DukeActions.blockExternalHelp();
+                    DukeActions.blockExternalHelp(actionPlayer);
                 }
                 break;
 

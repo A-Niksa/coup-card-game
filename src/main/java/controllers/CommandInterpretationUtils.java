@@ -7,10 +7,7 @@ import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Human;
 import logic.models.Player;
-import logic.models.actions.Action;
-import logic.models.actions.ActionIdentifier;
-import logic.models.actions.ActionsStack;
-import logic.models.actions.NormalAction;
+import logic.models.actions.*;
 import logic.models.actions.cardutils.specialutils.AssassinationAction;
 import logic.models.actions.cardutils.specialutils.CoupAction;
 import logic.models.actions.cardutils.specialutils.ExchangeAction;
@@ -110,6 +107,15 @@ public class CommandInterpretationUtils {
         NormalAction action = new NormalAction(ActionIdentifier.EXTERNAL_HELP_REQUEST_COUNTER, CardIdentifier.DUKE,
                 humanPlayer, targetPlayer);
         return action;
+    }
+
+    public static Action interpretChallenge(Command command, Human humanPlayer) {
+        ChallengeCommand challengeCommand = (ChallengeCommand) command;
+
+        Player targetPlayer = getPlayerByIdentifier(challengeCommand.getTargetPlayerIdentifier());
+
+        Challenge challenge = new Challenge(humanPlayer, targetPlayer, challengeCommand.getChallengedAction());
+        return challenge;
     }
 
     private static Player getPlayerByIdentifier(PlayerIdentifier playerIdentifier) {

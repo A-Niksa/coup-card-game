@@ -63,6 +63,9 @@ public class HumanPlayerController {
                 action = CommandInterpretationUtils.interpretHelpRequestCounter(currentCommand, humanPlayer);
                 break;
 
+            case CHALLENGE:
+                action = CommandInterpretationUtils.interpretChallenge(currentCommand, humanPlayer);
+                break;
             case NOTHING:
                 action = null; // action is already null. added this assignment for explicitness of the code
         }

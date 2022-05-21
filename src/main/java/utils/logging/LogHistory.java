@@ -37,6 +37,19 @@ public class LogHistory {
         consoleLogger.printLogToConsole(entry);
     }
 
+    public static void log(PlayerIdentifier actionPlayerIdentifier, PlayerIdentifier affectedPlayerIdentifier,
+                           ActionIdentifier actionIdentifier, ActionState actionState) {
+        getInstance().logByInstance(actionPlayerIdentifier, affectedPlayerIdentifier, actionIdentifier, actionState);
+    }
+
+    private void logByInstance(PlayerIdentifier actionPlayerIdentifier, PlayerIdentifier affectedPlayerIdentifier,
+                               ActionIdentifier actionIdentifier, ActionState actionState) {
+        LogEntry entry = new LogEntry(actionPlayerIdentifier, affectedPlayerIdentifier, actionIdentifier, actionState);
+        logEntriesList.add(entry);
+
+        consoleLogger.printLogToConsole(entry);
+    }
+
     public static ArrayList<LogEntry> getLogEntriesList() {
         return getInstance().logEntriesList;
     }

@@ -17,6 +17,6 @@ public class CoupAction extends NormalAction {
 
     @Override
     protected void resolveAction() {
-        GeneralActions.attemptCoup(targetPlayer, targetCardIdentifier);
+        GeneralActions.attemptCoup(actionPlayer, targetPlayer, targetCardIdentifier);
     }
 }

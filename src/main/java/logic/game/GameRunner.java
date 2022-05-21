@@ -5,11 +5,16 @@ import logic.game.tools.iteration.PlayerIterable;
 import logic.game.tools.iteration.PlayerIterator;
 import logic.models.Player;
 import logic.models.actions.ActionsStack;
+import utils.logging.GameStateHistory;
+import utils.logging.GameStateIdentifier;
 
 import java.util.ArrayList;
 
 public class GameRunner implements Runnable {
     private GamePanel gamePanel;
+    private int currentTurnIndex;
+    private int currentTurnInStageIndex; // index of player from whom an action is expected
+    private Player currentPlayer;
     private ActionsStack stack;
 
     public GameRunner(GamePanel gamePanel) {
@@ -19,23 +24,28 @@ public class GameRunner implements Runnable {
 
     public void run() {
         while (!GameState.gameHasEnded()) { // each iteration corresponds to a round (and each round has 3 stages)
-            int currentTurnIndex = GameState.getIndexOfCurrentPlayer();
-            Player currentPlayer = GameState.getCurrentPlayerFromTurnKeeper();
+            currentTurnIndex = GameState.getIndexOfCurrentPlayer();
+            currentTurnInStageIndex = currentTurnIndex;
+            currentPlayer = GameState.getCurrentPlayerFromTurnKeeper();
 
             stack = new ActionsStack();
 
+            GameStateHistory.log(GameStateIdentifier.NORMAL_ACTIONS, currentPlayer.getPlayerIdentifier());
+            gamePanel.updateNotifiers();
+
             if (currentTurnIndex != 0) { // in this case, the current player is a bot
-                suspendProgram(800);
+                suspendProgram(2000);
             }
 
             currentPlayer.playNormalAction(stack);
-            gamePanel.updatePanel();
+            gamePanel.updateNotifiers();
 
             askPlayersIfTheyWantToPlayCounterAction(currentTurnIndex, stack);
             askPlayersIfTheyWantToChallenge(currentTurnIndex, stack);
 
             stack.resolveStack(gamePanel);
 
+            gamePanel.updatePanel();
             GameState.advanceTurnInTurnKeeper();
         }
 
@@ -48,11 +58,16 @@ public class GameRunner implements Runnable {
 
         for (Player player : partialIterable) {
             if (!player.hasLost()) {
-                System.out.println("*" + player.getPlayerIdentifier());
-                suspendProgram(800);
+                GameStateHistory.log(GameStateIdentifier.COUNTER_ACTIONS, player.getPlayerIdentifier());
+                gamePanel.updateNotifiers();
+
+                currentTurnInStageIndex = player.getPlayerIndex();
+
+                suspendProgram(2000);
+
                 player.playCounterAction(stack);
 
-                gamePanel.updatePanel();
+                gamePanel.updateNotifiers();
             }
         }
     }
@@ -63,11 +78,18 @@ public class GameRunner implements Runnable {
 
         for (Player player : iterable) {
             if (!player.hasLost()) {
-                System.out.println("**" + player.getPlayerIdentifier());
-                suspendProgram(800);
+                GameStateHistory.log(GameStateIdentifier.CHALLENGES, player.getPlayerIdentifier());
+                gamePanel.updateNotifiers();
+
+                currentTurnInStageIndex = player.getPlayerIndex();
+
+                if (player.getPlayerIndex() != 0) {
+                    suspendProgram(2000);
+                }
+
                 player.challenge(stack);
 
-                gamePanel.updatePanel();
+                gamePanel.updateNotifiers();
             }
         }
     }
@@ -95,5 +117,21 @@ public class GameRunner implements Runnable {
 
     public ActionsStack getStack() {
         return stack;
+    }
+
+    public int getCurrentTurnIndex() {
+        return currentTurnIndex;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public int getCurrentTurnInStageIndex() {
+        return currentTurnInStageIndex;
+    }
+
+    public void setCurrentTurnInStageIndex(int currentTurnInStageIndex) {
+        this.currentTurnInStageIndex = currentTurnInStageIndex;
     }
 }

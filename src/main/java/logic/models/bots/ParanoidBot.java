@@ -50,17 +50,18 @@ public class ParanoidBot extends Bot {
             boolean thereHaveBeenTooManyChallenges = PossibleActionsUtils.thereHaveAlreadyBeenTooManyChallenges(stack);
 
             if (thereHaveBeenTooManyChallenges) {
-                ArrayList<Player> challengableActionsPlayersList =
-                        PossibleActionsUtils.getListOfChallengeableActionsPlayers(stack);
+                ArrayList<Action> challengableActionsList =
+                        PossibleActionsUtils.getListOfChallengeableActions(stack, this);
 
-                if (challengableActionsPlayersList.isEmpty()) {
+                if (challengableActionsList.isEmpty()) {
                     return;
                 }
 
-                int randomIndex = randomGenerator.nextInt(challengableActionsPlayersList.size());
-                Player targetPlayer = challengableActionsPlayersList.get(randomIndex);
+                int randomIndex = randomGenerator.nextInt(challengableActionsList.size());
+                Action actionToChallenge = challengableActionsList.get(randomIndex);
 
-                Challenge challenge = new Challenge(this, targetPlayer);
+                Challenge challenge = new Challenge(this, actionToChallenge.getTargetPlayer(),
+                        actionToChallenge);
                 stack.addToStack(challenge);
             }
         }

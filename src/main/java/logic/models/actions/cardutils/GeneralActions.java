@@ -4,22 +4,34 @@ import logic.game.GameState;
 import logic.models.CardIdentifier;
 import logic.models.Hand;
 import logic.models.Player;
+import logic.models.actions.ActionIdentifier;
+import utils.logging.ActionState;
+import utils.logging.LogHistory;
 
 public class GeneralActions {
     static void acquireIncome(Player actionPlayer) {
         int income = GameState.requestCoinsFromTreasury(1);
         actionPlayer.addCoinsToPlayer(income);
+
+        LogHistory.log(actionPlayer.getPlayerIdentifier(), null, ActionIdentifier.INCOME_ACQUISITION,
+                ActionState.SUCCESSFUL);
     }
 
     static void requestExternalHelp(Player actionPlayer) {
         int externalHelp = GameState.requestCoinsFromTreasury(2);
         actionPlayer.addCoinsToPlayer(externalHelp);
+
+        LogHistory.log(actionPlayer.getPlayerIdentifier(), null, ActionIdentifier.EXTERNAL_HELP_REQUEST,
+                ActionState.SUCCESSFUL);
     }
 
-    public static void attemptCoup(Player targetPlayer, CardIdentifier targetCardIdentifier) {
+    public static void attemptCoup(Player actionPlayer, Player targetPlayer, CardIdentifier targetCardIdentifier) {
         // public, so that it can be accessed from CoupAction
         Hand handOfTargetPlayer = targetPlayer.getHand();
         handOfTargetPlayer.removeCard(targetCardIdentifier);
+
+        LogHistory.log(actionPlayer.getPlayerIdentifier(), targetPlayer.getPlayerIdentifier(), ActionIdentifier.COUP,
+                ActionState.SUCCESSFUL);
     }
 
     static void swapPlayerCardRandomly(Player actionPlayer) {
@@ -30,6 +42,9 @@ public class GeneralActions {
 
             Hand handOfActionPlayer = actionPlayer.getHand();
             handOfActionPlayer.swapRandomCard();
+
+            LogHistory.log(actionPlayer.getPlayerIdentifier(), null, ActionIdentifier.CARD_SWAP,
+                    ActionState.SUCCESSFUL);
         }
     }
 }

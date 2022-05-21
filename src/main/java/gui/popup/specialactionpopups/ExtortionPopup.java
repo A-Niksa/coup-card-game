@@ -26,9 +26,9 @@ public class ExtortionPopup extends SpecialActionPopupTemplate {
         alivePlayersList = new ArrayList<>();
         ArrayList<Player> playersList = GameState.getPlayersList();
 
-        for (int i = 1; i < alivePlayersList.size(); i++) { // i = 1 in order to skip the human player
-            if (alivePlayersList.get(i).hasLost()) {
-                playersList.add(alivePlayersList.get(i));
+        for (int i = 1; i < playersList.size(); i++) { // i = 1 in order to skip the human player
+            if (!playersList.get(i).hasLost()) {
+                alivePlayersList.add(playersList.get(i));
             }
         }
     }

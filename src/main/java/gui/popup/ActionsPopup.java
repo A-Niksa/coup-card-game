@@ -4,6 +4,7 @@ import gui.MainFrame;
 import gui.guiconfig.popup.ActionsPopupConfig;
 import gui.guiutils.popup.ActionsPopupUtils;
 import gui.guiutils.popup.SpecialActionsOpenerUtils;
+import logic.game.GameRunner;
 import logic.models.CardIdentifier;
 import logic.models.actions.ActionsStack;
 
@@ -11,7 +12,6 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class ActionsPopup extends PopupTemplate {
-    private MainFrame mainFrame;
     private ActionsStack stack;
 
     private JButton exchangeCardsButton;
@@ -28,9 +28,8 @@ public class ActionsPopup extends PopupTemplate {
     private JButton blockExtortionAsCaptainButton;
     private ArrayList<JButton> buttonsList;
 
-    public ActionsPopup(MainFrame mainFrame, ActionsStack stack) {
+    public ActionsPopup(ActionsStack stack) {
         super(ConstructorMode.OPEN_NEW_FRAME);
-        this.mainFrame = mainFrame;
         this.stack = stack;
 
         drawPanel();
@@ -86,26 +85,97 @@ public class ActionsPopup extends PopupTemplate {
 
     @Override
     protected void connectListeners() {
-        randomCardSwapButton.addActionListener(e -> ActionsPopupUtils.swapCardRandomly(frame, this));
-        acquireIncomeButton.addActionListener(e -> ActionsPopupUtils.acquireIncome(frame, this));
-        requestHelpButton.addActionListener(e -> ActionsPopupUtils.requestExternalHelp(frame, this));
-        acquireTaxButton.addActionListener(e -> ActionsPopupUtils.acquireTax(frame, this));
-        blockAssassinationButton.addActionListener(e -> ActionsPopupUtils.blockAssassination(frame,this,
-                stack));
-        blockHelpRequestButton.addActionListener(e -> ActionsPopupUtils.blockExternalHelp(frame, this,
-                stack));
-        blockExtortionAsAmbassadorButton.addActionListener(e -> ActionsPopupUtils.blockExtortion(frame, this,
-                CardIdentifier.AMBASSADOR, stack));
-        blockExtortionAsCaptainButton.addActionListener(e -> ActionsPopupUtils.blockExtortion(frame, this,
-                CardIdentifier.CAPTAIN, stack));
+        randomCardSwapButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeCounterAction(frame)) {
+                return;
+            }
 
-        exchangeCardsButton.addActionListener(e -> SpecialActionsOpenerUtils.goToExchangePopup(frame, this,
-                stack));
-        assassinateOpponentButton.addActionListener(e -> SpecialActionsOpenerUtils.goToAssassinationPopup(frame,
-                this, stack));
-        attemptCoupButton.addActionListener(e -> SpecialActionsOpenerUtils.goToCoupPopup(frame, this,
-                stack));
-        extortOpponentButton.addActionListener(e -> SpecialActionsOpenerUtils.goToExtortionPopup(frame, this,
-                stack));
+            ActionsPopupUtils.swapCardRandomly(frame, this);
+        });
+
+        acquireIncomeButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeCounterAction(frame)) {
+                return;
+            }
+
+            ActionsPopupUtils.acquireIncome(frame, this);
+        });
+
+        requestHelpButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeCounterAction(frame)) {
+                return;
+            }
+
+            ActionsPopupUtils.requestExternalHelp(frame, this);
+        });
+
+        acquireTaxButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeCounterAction(frame)) {
+                return;
+            }
+
+            ActionsPopupUtils.acquireTax(frame, this);
+        });
+
+        exchangeCardsButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeCounterAction(frame)) {
+                return;
+            }
+
+            SpecialActionsOpenerUtils.goToExchangePopup(frame, this, stack);
+        });
+        assassinateOpponentButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeCounterAction(frame)) {
+                return;
+            }
+
+            SpecialActionsOpenerUtils.goToAssassinationPopup(frame,this, stack);
+        });
+
+        attemptCoupButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeCounterAction(frame)) {
+                return;
+            }
+
+            SpecialActionsOpenerUtils.goToCoupPopup(frame, this, stack);
+        });
+        extortOpponentButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeCounterAction(frame)) {
+                return;
+            }
+
+            SpecialActionsOpenerUtils.goToExtortionPopup(frame, this, stack);
+        });
+
+        blockAssassinationButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeNormalAction(frame)) {
+                return;
+            }
+
+            ActionsPopupUtils.blockAssassination(frame,this, stack);
+        });
+
+        blockHelpRequestButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeNormalAction(frame)) {
+                return;
+            }
+
+            ActionsPopupUtils.blockExternalHelp(frame, this, stack);
+        });
+
+        blockExtortionAsAmbassadorButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeNormalAction(frame)) {
+                return;
+            }
+
+            ActionsPopupUtils.blockExtortion(frame, this, CardIdentifier.AMBASSADOR, stack);
+        });
+        blockExtortionAsCaptainButton.addActionListener(e -> {
+            if (ActionsPopupUtils.checkIfShouldMakeNormalAction(frame)) {
+                return;
+            }
+
+            ActionsPopupUtils.blockExtortion(frame, this, CardIdentifier.CAPTAIN, stack);
+        });
     }
 }

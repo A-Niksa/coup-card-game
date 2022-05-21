@@ -11,8 +11,10 @@ import gui.game.components.hands.HumanHand;
 import gui.game.components.PauseButton;
 import gui.game.components.RectangularContainer;
 import gui.game.components.notifiers.LogNotifier;
+import gui.game.components.notifiers.StatusNotifier;
 import gui.guiconfig.game.components.*;
 import gui.popup.ActionsPopup;
+import gui.popup.ChallengePopup;
 import gui.popup.HelpPopup;
 import gui.guiutils.GeneralUtils;
 import gui.guiutils.game.GamePanelUtils;
@@ -51,6 +53,7 @@ public class GamePanel extends Template implements DynamicPanel {
     private PlayerNameDisplay topNameDisplay;
     private PlayerNameDisplay rightNameDisplay;
 
+    private StatusNotifier statusNotifier;
     private LogNotifier logNotifier;
 
     private ArrayList<DynamicComponent> dynamicComponentsList;
@@ -99,6 +102,7 @@ public class GamePanel extends Template implements DynamicPanel {
         rightNameDisplay = new PlayerNameDisplay(this, DisplayLocation.RIGHT);
 
         // these components, too, will get aligned in their constructors:
+        statusNotifier = new StatusNotifier(this);
         logNotifier = new LogNotifier(this);
     }
 
@@ -126,8 +130,40 @@ public class GamePanel extends Template implements DynamicPanel {
     protected void connectListeners() {
         helpButton.addActionListener(e -> new HelpPopup());
         logButton.addActionListener(e -> new LogPopup());
-        actionsButton.addActionListener(e -> new ActionsPopup(mainFrame, gameRunner.getStack()));
-        passButton.addActionListener(e -> GamePanelUtils.passTurn());
+
+        actionsButton.addActionListener(e -> {
+            if (!GamePanelUtils.checkIfIsTurnOfPlayer(mainFrame, gameRunner)) {
+                return;
+            }
+
+            if (GamePanelUtils.checkIfShouldNotPlayNormalOrCounterActions(mainFrame)) {
+                return;
+            }
+
+            new ActionsPopup(gameRunner.getStack());
+        });
+
+        challengeButton.addActionListener(e -> {
+            if (GamePanelUtils.checkIfShouldNotChallenge(mainFrame)) {
+                return;
+            }
+
+            new ChallengePopup(gameRunner.getStack());
+        });
+
+        passButton.addActionListener(e -> {
+            if (!GamePanelUtils.checkIfIsTurnOfPlayer(mainFrame, gameRunner)) {
+                return;
+            }
+
+            if (!GamePanelUtils.canPassTurn()) {
+                JOptionPane.showMessageDialog(mainFrame, "You cannot pass your turn when you are asked to" +
+                        " make a normal move.");
+                return;
+            }
+
+            GamePanelUtils.passTurn();
+        });
     }
 
     private void addDynamicComponentsToList() {
@@ -143,6 +179,7 @@ public class GamePanel extends Template implements DynamicPanel {
         dynamicComponentsList.add(topCoinsDisplay);
         dynamicComponentsList.add(rightCoinsDisplay);
 
+        dynamicComponentsList.add(statusNotifier);
         dynamicComponentsList.add(logNotifier);
     }
 
@@ -153,6 +190,18 @@ public class GamePanel extends Template implements DynamicPanel {
         for (DynamicComponent component : dynamicComponentsList) {
             component.updateComponent();
         }
+
+        GeneralUtils.alignBackground(this, backgroundImage);
+
+        repaint();
+        revalidate();
+    }
+
+    public void updateNotifiers() {
+        remove(backgroundImage);
+
+        statusNotifier.updateComponent();
+        logNotifier.updateComponent();
 
         GeneralUtils.alignBackground(this, backgroundImage);
 

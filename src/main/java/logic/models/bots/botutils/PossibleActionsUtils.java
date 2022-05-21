@@ -27,6 +27,27 @@ public class PossibleActionsUtils {
         return challengeableActionsPlayersList;
     }
 
+    public static ArrayList<Action> getListOfChallengeableActions(ActionsStack stack, Player currentPlayer) {
+        ArrayList<Action> challengeableActionsList = new ArrayList<>();
+
+        for (Action action : stack.getStackOfActions()) {
+            boolean isCounterAction = action.isCounterAction();
+            boolean isNormalAction = !(isCounterAction || action.isChallenge());
+            boolean isAnUnchallengeableAction = action.getActionIdentifier() == ActionIdentifier.INCOME_ACQUISITION ||
+                    action.getActionIdentifier() == ActionIdentifier.COUP ||
+                    action.getActionIdentifier() == ActionIdentifier.CARD_SWAP;
+
+
+            if ((isNormalAction || isCounterAction) && !isAnUnchallengeableAction) {
+                if (action.getActionPlayer() != currentPlayer) {
+                    challengeableActionsList.add(action);
+                }
+            }
+        }
+
+        return challengeableActionsList;
+    }
+
     public static boolean thereHaveAlreadyBeenTooManyChallenges(ActionsStack stack) {
         int numberOfNormalOrCounterActions = getListOfChallengeableActionsPlayers(stack).size();
 
