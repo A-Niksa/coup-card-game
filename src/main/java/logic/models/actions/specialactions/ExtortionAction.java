@@ -1,10 +1,9 @@
-package logic.models.actions.cardutils.specialutils;
+package logic.models.actions.specialactions;
 
 import logic.models.CardIdentifier;
 import logic.models.Player;
 import logic.models.actions.ActionIdentifier;
 import logic.models.actions.NormalAction;
-import logic.models.actions.cardutils.AssassinActions;
 import logic.models.actions.cardutils.CaptainActions;
 
 public class ExtortionAction extends NormalAction {
@@ -13,7 +12,7 @@ public class ExtortionAction extends NormalAction {
     }
 
     @Override
-    protected void resolveAction() {
+    public void resolveAction() {
         CaptainActions.extort(actionPlayer, targetPlayer);
     }
 }

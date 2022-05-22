@@ -34,6 +34,7 @@ public class EndgameChecker {
         player.setHasLost(true);
 
         int coinsOfPlayer = player.getNumberOfCoins();
-        GameState.returnCoinsToTreasury(coinsOfPlayer);
+        int deductedCoins = player.reduceCoinsFromPlayer(coinsOfPlayer);
+        GameState.returnCoinsToTreasury(deductedCoins);
     }
 }

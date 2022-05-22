@@ -1,10 +1,8 @@
 package gui.popup;
 
-import gui.MainFrame;
 import gui.guiconfig.popup.ActionsPopupConfig;
 import gui.guiutils.popup.ActionsPopupUtils;
 import gui.guiutils.popup.SpecialActionsOpenerUtils;
-import logic.game.GameRunner;
 import logic.models.CardIdentifier;
 import logic.models.actions.ActionsStack;
 
@@ -129,7 +127,7 @@ public class ActionsPopup extends PopupTemplate {
                 return;
             }
 
-            SpecialActionsOpenerUtils.goToAssassinationPopup(frame,this, stack);
+            SpecialActionsOpenerUtils.goToAssassinationPopup(frame, this, stack);
         });
 
         attemptCoupButton.addActionListener(e -> {
@@ -152,7 +150,7 @@ public class ActionsPopup extends PopupTemplate {
                 return;
             }
 
-            ActionsPopupUtils.blockAssassination(frame,this, stack);
+            ActionsPopupUtils.blockAssassination(frame, this, stack);
         });
 
         blockHelpRequestButton.addActionListener(e -> {

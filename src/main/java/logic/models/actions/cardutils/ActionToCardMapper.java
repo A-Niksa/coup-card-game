@@ -27,6 +27,11 @@ public class ActionToCardMapper {
                 }
                 break;
 
+            case ASSASSIN:
+                if (actionIdentifier == ActionIdentifier.ASSASSINATION) {
+                    AssassinActions.assassinate(actionPlayer, targetPlayer);
+                }
+
             case CONTESSA:
                 if (actionIdentifier == ActionIdentifier.ASSASSINATION_COUNTER) {
                     ContessaActions.blockAssassination(actionPlayer, targetPlayer);
@@ -56,8 +61,9 @@ public class ActionToCardMapper {
                     GeneralActions.requestExternalHelp(actionPlayer);
                 } else if (actionIdentifier == ActionIdentifier.CARD_SWAP) {
                     GeneralActions.swapPlayerCardRandomly(actionPlayer);
+                } else if (actionIdentifier == ActionIdentifier.COUP) {
+                    GeneralActions.attemptCoup(actionPlayer, targetPlayer);
                 }
-                // coup is not included here since it is to be handled separately
         }
     }
 }

@@ -3,7 +3,6 @@ package logic.models;
 import logic.game.GameState;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Hand {
@@ -15,16 +14,8 @@ public class Hand {
         cardsList = new ArrayList<>();
     }
 
-    public void addCardsToHand(Card... cards) {
-        ArrayList<Card> cardsToAdd = new ArrayList<>(Arrays.asList(cards));
-
-        if (cardsToAdd.size() > 2) {
-            return;
-        }
-
-        for (Card card : cardsToAdd) {
-            addCard(card);
-        }
+    public void addCardsToHand(ArrayList<Card> selectedCardsList) {
+        cardsList.addAll(selectedCardsList);
     }
 
     private void addCard(Card card) {

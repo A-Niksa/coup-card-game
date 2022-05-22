@@ -37,6 +37,7 @@ public class EndgamePanel extends Template {
     protected void alignComponents() {
         winnerNameLabel.setBounds(EndgamePanelConfig.X_BUTTON, EndgamePanelConfig.Y_LABEL,
                 EndgamePanelConfig.BUTTON_WIDTH, EndgamePanelConfig.BUTTON_HEIGHT);
+        winnerNameLabel.setOpaque(true);
         add(winnerNameLabel);
 
         mainMenuButton.setBounds(EndgamePanelConfig.X_BUTTON, EndgamePanelConfig.Y_MAIN_MENU_BUTTON,

@@ -1,7 +1,6 @@
 package controllers;
 
 import logic.game.GameState;
-import logic.models.Human;
 import logic.models.Player;
 import logic.models.actions.Action;
 import logic.models.actions.ActionIdentifier;

@@ -26,7 +26,7 @@ public class CounterAction extends Action {
     }
 
     @Override
-    protected void resolveAction() {
+    public void resolveAction() {
         if (counteredAction.shouldBeSkipped()) {
             // in this case, the counterAction was challenged and nullified as a result
             return;

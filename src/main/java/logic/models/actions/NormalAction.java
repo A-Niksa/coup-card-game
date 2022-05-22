@@ -11,7 +11,7 @@ public class NormalAction extends Action {
     }
 
     @Override
-    protected void resolveAction() {
+    public void resolveAction() {
         ActionToCardMapper.mapActionToCard(actionIdentifier, cardIdentifier, actionPlayer, targetPlayer);
     }
 }

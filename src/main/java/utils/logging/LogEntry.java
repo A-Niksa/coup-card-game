@@ -1,5 +1,6 @@
 package utils.logging;
 
+import logic.models.CardIdentifier;
 import logic.models.actions.ActionIdentifier;
 import utils.config.PlayerIdentifier;
 
@@ -8,6 +9,7 @@ public class LogEntry {
     private PlayerIdentifier affectedPlayerIdentifier;
     private ActionIdentifier actionIdentifier;
     private ActionState actionState;
+    private CardIdentifier revealedCard;
 
     public LogEntry(PlayerIdentifier actionPlayerIdentifier, PlayerIdentifier affectedPlayerIdentifier,
                     ActionIdentifier actionIdentifier) {
@@ -24,7 +26,17 @@ public class LogEntry {
         this.actionState = actionState;
     }
 
+    public LogEntry(PlayerIdentifier actionPlayerIdentifier, CardIdentifier revealedCard) {
+        this.actionPlayerIdentifier = actionPlayerIdentifier;
+        this.revealedCard = revealedCard;
+    }
+
     public String getLogEntryString() {
+        if (revealedCard != null) {
+            String playerNameLowerCase = actionPlayerIdentifier.toString().toLowerCase();
+            return "Revealed card of " + playerNameLowerCase + ": " + revealedCard;
+        }
+
         String actionPlayerString, affectedPlayerString, actionString, stateString, arrowString;
 
         actionPlayerString = actionPlayerIdentifier == null ? "" : actionPlayerIdentifier.toString();

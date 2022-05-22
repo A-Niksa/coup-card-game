@@ -1,7 +1,6 @@
 package controllers.actioncommands;
 
 import logic.models.Card;
-import logic.models.CardIdentifier;
 import logic.models.actions.ActionIdentifier;
 
 import java.util.ArrayList;

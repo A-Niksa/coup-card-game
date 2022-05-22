@@ -7,7 +7,7 @@ public class ConsoleLogger {
         System.out.println(logEntryString);
     }
 
-    public void printSeparator() {
-        System.out.println("#===========================================#");
+    public void printSeparator(String separator) {
+        System.out.println(separator);
     }
 }

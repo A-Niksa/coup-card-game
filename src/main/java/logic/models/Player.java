@@ -3,6 +3,7 @@ package logic.models;
 import logic.game.GameState;
 import logic.models.actions.ActionsStack;
 import utils.config.PlayerIdentifier;
+import utils.logging.LogHistory;
 
 import java.util.Random;
 
@@ -38,8 +39,15 @@ public abstract class Player {
     }
 
     public void punishPlayer() {
+        if (hand.getCardsList().isEmpty()) {
+            return;
+        }
+
         Random randomGenerator = new Random();
         int randomIndex = randomGenerator.nextInt(hand.getCardsList().size());
+
+        Card randomCard = hand.getCardsList().get(randomIndex);
+        LogHistory.logRevealedCard(playerIdentifier, randomCard.getIdentifier());
 
         hand.removeCard(randomIndex);
     }

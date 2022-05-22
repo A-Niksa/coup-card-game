@@ -1,8 +1,8 @@
 package gui.popup;
 
-import gui.menus.BotSelectionMenu;
 import gui.guiconfig.popup.DefaultOptionsConfig;
 import gui.guiutils.popup.DefaultOptionsUtils;
+import gui.menus.BotSelectionMenu;
 
 import javax.swing.*;
 
@@ -26,8 +26,8 @@ public class DefaultOptionsPopup extends PopupTemplate {
     }
 
     private void initializeComboBoxArrays() {
-        gameInitialHandsModeArray = new String[] {"Random", "Default"};
-        gameBotsSelectionModeArray = new String[] {"Custom", "Default"};
+        gameInitialHandsModeArray = new String[]{"Random", "Default"};
+        gameBotsSelectionModeArray = new String[]{"Custom", "Default"};
     }
 
     @Override

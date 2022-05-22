@@ -1,10 +1,8 @@
 package logic.models.bots;
 
-import logic.models.Card;
-import logic.models.CardIdentifier;
 import logic.models.Player;
 import logic.models.actions.*;
-import logic.models.actions.cardutils.specialutils.CoupAction;
+import logic.models.actions.specialactions.CoupAction;
 import logic.models.bots.botutils.PossibleActionsUtils;
 import logic.models.bots.botutils.RandomActionsUtils;
 import utils.config.PlayerIdentifier;
@@ -21,10 +19,7 @@ public class RandomBot extends Bot {
         if (numberOfCoins >= 10) {
             Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator, this);
 
-            Card targetCard = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
-            CardIdentifier targetCardIdentifier = targetCard.getIdentifier();
-
-            CoupAction coup = new CoupAction(this, targetPlayer, targetCardIdentifier);
+            CoupAction coup = new CoupAction(this, targetPlayer);
 
             return;
         }
@@ -65,7 +60,7 @@ public class RandomBot extends Bot {
                 int randomIndex = randomGenerator.nextInt(challengableActionsList.size());
                 Action actionToChallenge = challengableActionsList.get(randomIndex);
 
-                Challenge challenge = new Challenge(this, actionToChallenge.getTargetPlayer(),
+                Challenge challenge = new Challenge(this, actionToChallenge.getActionPlayer(),
                         actionToChallenge);
                 stack.addToStack(challenge);
             }

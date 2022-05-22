@@ -19,8 +19,10 @@ public class PossibleActionsUtils {
 
 
             if ((isNormalAction || isCounterAction) && !isAnUnchallengeableAction) {
-                Player targetPlayer = action.getActionPlayer();
-                challengeableActionsPlayersList.add(targetPlayer);
+                if (!actionHasBeenChallengedBefore(action, stack)) {
+                    Player targetPlayer = action.getActionPlayer();
+                    challengeableActionsPlayersList.add(targetPlayer);
+                }
             }
         }
 
@@ -40,9 +42,9 @@ public class PossibleActionsUtils {
 
             if ((isNormalAction || isCounterAction) && !isAnUnchallengeableAction) {
                 if (action.getActionPlayer().getPlayerIdentifier() != currentPlayer.getPlayerIdentifier()) {
-                    challengeableActionsList.add(action);
-
-                    System.out.println(action.getActionPlayer().getPlayerIdentifier() + " " + action.getActionIdentifier());
+                    if (!actionHasBeenChallengedBefore(action, stack)) {
+                        challengeableActionsList.add(action);
+                    }
                 }
             }
         }
@@ -50,9 +52,21 @@ public class PossibleActionsUtils {
         return challengeableActionsList;
     }
 
-    public static boolean thereHaveAlreadyBeenTooManyChallenges(ActionsStack stack) {
-        int numberOfNormalOrCounterActions = getListOfChallengeableActionsPlayers(stack).size();
+    private static boolean actionHasBeenChallengedBefore(Action targetAction, ActionsStack stack) {
+        for (Action action : stack.getStackOfActions()) {
+            if (action.getActionIdentifier() == ActionIdentifier.CHALLENGE) {
+                Challenge challenge = (Challenge) action;
 
+                if (challenge.getChallengedAction() == targetAction) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean thereHaveAlreadyBeenTooManyChallenges(ActionsStack stack) {
         int numberOfChallenges = 0;
         for (Action action : stack.getStackOfActions()) {
             if (action.isChallenge()) {
@@ -61,7 +75,7 @@ public class PossibleActionsUtils {
         }
 
         // in case this is true, it would be implied that the capacity for challenges per rounds has been filled:
-        return numberOfChallenges >= numberOfNormalOrCounterActions;
+        return numberOfChallenges >= 1;
     }
 
     public static Action getAttackActionOnPlayer(Player targetPlayer, ActionsStack stack) {

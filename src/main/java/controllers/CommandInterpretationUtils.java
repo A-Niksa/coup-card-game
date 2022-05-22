@@ -1,23 +1,20 @@
 package controllers;
 
 import controllers.actioncommands.*;
-import gui.popup.ActionsPopup;
 import logic.game.GameState;
 import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Human;
 import logic.models.Player;
 import logic.models.actions.*;
-import logic.models.actions.cardutils.specialutils.AssassinationAction;
-import logic.models.actions.cardutils.specialutils.CoupAction;
-import logic.models.actions.cardutils.specialutils.ExchangeAction;
-import logic.models.actions.cardutils.specialutils.ExtortionAction;
-import logic.models.bots.botutils.RandomActionsUtils;
+import logic.models.actions.specialactions.AssassinationAction;
+import logic.models.actions.specialactions.CoupAction;
+import logic.models.actions.specialactions.ExchangeAction;
+import logic.models.actions.specialactions.ExtortionAction;
 import utils.config.PlayerIdentifier;
 
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.Random;
 
 public class CommandInterpretationUtils {
     public static Action interpretAssassination(Command command, Human humanPlayer) {
@@ -25,11 +22,7 @@ public class CommandInterpretationUtils {
 
         Player targetPlayer = getPlayerByIdentifier(assassinationCommand.getTargetPlayerIdentifier());
 
-        Random randomGenerator = new Random();
-        Card randomCardOfTargetPlayer = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
-        CardIdentifier targetCardIdentifier = randomCardOfTargetPlayer.getIdentifier();
-
-        AssassinationAction action = new AssassinationAction(humanPlayer, targetPlayer, targetCardIdentifier);
+        AssassinationAction action = new AssassinationAction(humanPlayer, targetPlayer);
         return action;
     }
 
@@ -81,11 +74,7 @@ public class CommandInterpretationUtils {
 
         Player targetPlayer = getPlayerByIdentifier(coupCommand.getTargetPlayerIdentifier());
 
-        Random randomGenerator = new Random();
-        Card randomCardOfTargetPlayer = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
-        CardIdentifier targetCardIdentifier = randomCardOfTargetPlayer.getIdentifier();
-
-        CoupAction action = new CoupAction(humanPlayer, targetPlayer, targetCardIdentifier);
+        CoupAction action = new CoupAction(humanPlayer, targetPlayer);
         return action;
     }
 

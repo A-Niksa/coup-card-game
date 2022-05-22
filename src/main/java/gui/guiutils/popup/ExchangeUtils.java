@@ -1,7 +1,5 @@
 package gui.guiutils.popup;
 
-import controllers.ConditionCheckingUtils;
-import controllers.actioncommands.AssassinationCommand;
 import controllers.actioncommands.ExchangeCommand;
 import gui.popup.specialactionpopups.SpecialActionPopupTemplate;
 import logic.game.GameState;

@@ -10,6 +10,7 @@ public class LogPopup extends PopupTemplate {
     private ArrayList<LogEntry> logEntriesList;
     private String concatenatedLogEntries;
     private JTextArea logTextArea;
+    private JScrollPane scrollableTextArea;
 
     public LogPopup() {
         super(ConstructorMode.OPEN_NEW_FRAME);
@@ -22,6 +23,8 @@ public class LogPopup extends PopupTemplate {
         concatenatedLogEntries = concatenateLogEntries();
 
         logTextArea = new JTextArea(concatenatedLogEntries);
+
+        scrollableTextArea = new JScrollPane(logTextArea);
     }
 
     private String concatenateLogEntries() {
@@ -36,8 +39,11 @@ public class LogPopup extends PopupTemplate {
 
     @Override
     protected void alignComponents() {
-        logTextArea.setBounds(0, 0, 320, 510);
-        add(logTextArea);
+        scrollableTextArea.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollableTextArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        scrollableTextArea.setBounds(0, 0, 300, 470);
+        add(scrollableTextArea);
     }
 
     @Override

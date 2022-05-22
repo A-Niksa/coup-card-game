@@ -2,7 +2,6 @@ package gui.popup;
 
 import gui.guiconfig.popup.HelpPopupConfig;
 import gui.guiconfig.popup.PopupTemplateConfig;
-import gui.popup.PopupTemplate;
 import utils.resources.ImageIdentifier;
 import utils.resources.ImageManager;
 

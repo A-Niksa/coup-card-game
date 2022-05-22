@@ -7,6 +7,8 @@ import gui.game.components.RectangularContainer;
 import gui.guiconfig.game.components.CommandsContainerConfig;
 import logic.game.GameRunner;
 import logic.game.GameState;
+import logic.models.actions.ActionsStack;
+import logic.models.bots.botutils.PossibleActionsUtils;
 import utils.logging.GameStateEntry;
 import utils.logging.GameStateHistory;
 import utils.logging.GameStateIdentifier;
@@ -68,6 +70,15 @@ public class GamePanelUtils {
         if (latestEntry.getGameState() == GameStateIdentifier.CHALLENGES) {
             JOptionPane.showMessageDialog(mainFrame, "This is challenging stage. You cannot play a normal or " +
                     "a counter action.");
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean checkIfThereHasAlreadyBeenAChallenge(MainFrame mainFrame, ActionsStack stack) {
+        if (PossibleActionsUtils.thereHaveAlreadyBeenTooManyChallenges(stack)) {
+            JOptionPane.showMessageDialog(mainFrame, "You cannot challenge anyone anymore.");
             return true;
         }
 

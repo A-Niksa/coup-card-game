@@ -1,6 +1,5 @@
 package gui.popup;
 
-import gui.MainFrame;
 import gui.guiconfig.frames.PopupFrameConfig;
 
 import javax.swing.*;

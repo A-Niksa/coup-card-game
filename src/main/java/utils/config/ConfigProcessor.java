@@ -4,7 +4,6 @@ import logic.models.CardIdentifier;
 import logic.models.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ConfigProcessor {
     private static ConfigProcessor processor;
@@ -32,7 +31,7 @@ public class ConfigProcessor {
     }
 
     private static GameMetaData createNewGameMetaData(ArrayList<PlayerIdentifier> identifiersOfBotsList,
-                                               ArrayList<HandMetaData> handsOfPlayersList) {
+                                                      ArrayList<HandMetaData> handsOfPlayersList) {
         GameMetaData newGameMetaData = new GameMetaData();
         newGameMetaData.setPlayersList(identifiersOfBotsList);
         newGameMetaData.setHandsOfPlayersList(handsOfPlayersList);

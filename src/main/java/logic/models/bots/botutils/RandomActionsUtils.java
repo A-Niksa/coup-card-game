@@ -15,28 +15,25 @@ public class RandomActionsUtils { // this class is not exclusive to the RandomBo
         // gets random player except for the player itself
         ArrayList<Player> playersList = GameState.getPlayersList();
 
-        ArrayList<Player> playersListCopy = new ArrayList<>(playersList);
-        removePlayerFromList(currentPlayer, playersListCopy);
-
-        int randomIndex = randomGenerator.nextInt(playersListCopy.size());
-        return playersListCopy.get(randomIndex);
-    }
-
-    private static void removePlayerFromList(Player playerToRemove, ArrayList<Player> playersList) {
-        Player player;
-        for (int i = 0; i < playersList.size(); i++) {
-            player = playersList.get(i);
-
-            if (player == playerToRemove) {
-                playersList.remove(i);
-
-                return;
+        ArrayList<Player> alivePlayersListExceptActionPlayer = new ArrayList<>();
+        for (Player player : playersList) {
+            if (player != currentPlayer) {
+                if (!player.hasLost()) {
+                    alivePlayersListExceptActionPlayer.add(player);
+                }
             }
         }
+
+        int randomIndex = randomGenerator.nextInt(alivePlayersListExceptActionPlayer.size());
+        return alivePlayersListExceptActionPlayer.get(randomIndex);
     }
 
     public static Card getRandomCardOfPlayer(Random randomGenerator, Player player) {
         ArrayList<Card> cardsOfPlayerList = player.getHand().getCardsList();
+
+        if (cardsOfPlayerList.isEmpty()) {
+            return null;
+        }
 
         int randomIndex = randomGenerator.nextInt(cardsOfPlayerList.size());
         return cardsOfPlayerList.get(randomIndex);
@@ -45,7 +42,6 @@ public class RandomActionsUtils { // this class is not exclusive to the RandomBo
     public static boolean getRandomBoolean(Random randomGenerator) {
         return randomGenerator.nextBoolean();
     }
-
 
 
     public static NormalAction getRandomSimpleAction(Random randomGenerator, Player actionPlayer) {

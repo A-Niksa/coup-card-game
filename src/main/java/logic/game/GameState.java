@@ -2,13 +2,13 @@ package logic.game;
 
 import controllers.HumanPlayerController;
 import controllers.actioncommands.Command;
+import logic.game.components.Deck;
+import logic.game.components.Treasury;
 import logic.game.tools.EndgameChecker;
 import logic.game.tools.TurnKeeper;
-import logic.game.components.Deck;
 import logic.models.Card;
 import logic.models.Hand;
 import logic.models.Player;
-import logic.game.components.Treasury;
 
 import java.util.ArrayList;
 import java.util.Random;

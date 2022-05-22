@@ -2,8 +2,8 @@ package gui.guiutils.menus;
 
 import gui.MainFrame;
 import gui.game.GamePanel;
-import gui.menus.BotSelectionMenu;
 import gui.guiconfig.menus.BotSelectionConfig;
+import gui.menus.BotSelectionMenu;
 import gui.menus.MainMenu;
 import utils.config.ConfigProcessor;
 
@@ -27,7 +27,7 @@ public class BotSelectionUtils {
     }
 
     public static void alignRadioButtons(BotSelectionMenu selectionPanel,
-                                              ArrayList<JRadioButton> radioButtonsList) {
+                                         ArrayList<JRadioButton> radioButtonsList) {
         int xCurrentButton = BotSelectionConfig.X_RADIO_BUTTON;
         int yCurrentButton = BotSelectionConfig.Y_RADIO_BUTTON;
         int vSpace = BotSelectionConfig.RADIO_BUTTON_V_SPACE;
@@ -62,7 +62,7 @@ public class BotSelectionUtils {
     }
 
     private static boolean correctNumberOfBotsAreSelected(MainFrame mainFrame, BotSelectionMenu selectionPanel,
-                                                              ArrayList<JRadioButton> botsRadioButtonsList) {
+                                                          ArrayList<JRadioButton> botsRadioButtonsList) {
         int numberOfCheckedRadioButtons = getNumberOfCheckedRadioButtons(botsRadioButtonsList);
 
         if (BotSelectionConfig.shouldUseDefaultBots) {

@@ -1,10 +1,9 @@
 package logic.models.bots;
 
-import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Player;
 import logic.models.actions.*;
-import logic.models.actions.cardutils.specialutils.CoupAction;
+import logic.models.actions.specialactions.CoupAction;
 import logic.models.bots.botutils.PossibleActionsUtils;
 import logic.models.bots.botutils.RandomActionsUtils;
 import utils.config.PlayerIdentifier;
@@ -19,16 +18,13 @@ public class CoupLovingBot extends Bot {
         // this bot will attempt coup anyway. so there's no need for adding mandatory coups at 10 coins
 
         if (numberOfCoins < 7) {
-            NormalAction taxation = new NormalAction(ActionIdentifier.TAXATION, CardIdentifier.DUKE,this,
+            NormalAction taxation = new NormalAction(ActionIdentifier.TAXATION, CardIdentifier.DUKE, this,
                     null);
             stack.addToStack(taxation);
         } else {
             Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator, this);
 
-            Card targetCard = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
-            CardIdentifier targetCardIdentifier = targetCard.getIdentifier();
-
-            CoupAction coup = new CoupAction(this, targetPlayer, targetCardIdentifier);
+            CoupAction coup = new CoupAction(this, targetPlayer);
             stack.addToStack(coup);
         }
     }

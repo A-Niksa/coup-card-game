@@ -1,12 +1,16 @@
 package logic.models.actions.cardutils;
 
 import logic.game.GameState;
+import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Hand;
 import logic.models.Player;
 import logic.models.actions.ActionIdentifier;
+import logic.models.bots.botutils.RandomActionsUtils;
 import utils.logging.ActionState;
 import utils.logging.LogHistory;
+
+import java.util.Random;
 
 public class GeneralActions {
     static void acquireIncome(Player actionPlayer) {
@@ -25,8 +29,11 @@ public class GeneralActions {
                 ActionState.SUCCESSFUL);
     }
 
-    public static void attemptCoup(Player actionPlayer, Player targetPlayer, CardIdentifier targetCardIdentifier) {
+    public static void attemptCoup(Player actionPlayer, Player targetPlayer) {
         // public, so that it can be accessed from CoupAction
+        Card randomCard = RandomActionsUtils.getRandomCardOfPlayer(new Random(), targetPlayer);
+        CardIdentifier targetCardIdentifier = randomCard.getIdentifier();
+
         Hand handOfTargetPlayer = targetPlayer.getHand();
         handOfTargetPlayer.removeCard(targetCardIdentifier);
 

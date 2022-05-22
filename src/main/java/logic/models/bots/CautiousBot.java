@@ -5,9 +5,9 @@ import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Player;
 import logic.models.actions.*;
-import logic.models.actions.cardutils.specialutils.AssassinationAction;
-import logic.models.actions.cardutils.specialutils.CoupAction;
-import logic.models.actions.cardutils.specialutils.ExchangeAction;
+import logic.models.actions.specialactions.AssassinationAction;
+import logic.models.actions.specialactions.CoupAction;
+import logic.models.actions.specialactions.ExchangeAction;
 import logic.models.bots.botutils.PossibleActionsUtils;
 import logic.models.bots.botutils.RandomActionsUtils;
 import utils.config.PlayerIdentifier;
@@ -24,23 +24,35 @@ public class CautiousBot extends Bot {
         if (numberOfCoins >= 10) {
             Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator, this);
 
-            Card targetCard = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
-            CardIdentifier targetCardIdentifier = targetCard.getIdentifier();
-
-            CoupAction coup = new CoupAction(this, targetPlayer, targetCardIdentifier);
+            CoupAction coup = new CoupAction(this, targetPlayer);
 
             return;
         }
 
         if (hasCard(CardIdentifier.ASSASSIN)) {
-            assassinateRandomCard(stack);
+            if (numberOfCoins >= 3) {
+                assassinateRandomCard(stack);
+            } else {
+                // will acquire 1 coin from the treasury
+                NormalAction incomeAcquisition = new NormalAction(ActionIdentifier.INCOME_ACQUISITION, null,
+                        this, null);
+                stack.addToStack(incomeAcquisition);
+            }
         } else {
             if (hasCard(CardIdentifier.AMBASSADOR)) {
                 tryToExchangeWithAssassin(stack);
             } else {
-                NormalAction cardsSwap = new NormalAction(ActionIdentifier.CARD_SWAP, null, this,
-                        null);
-                stack.addToStack(cardsSwap);
+                if (numberOfCoins >= 1) {
+                    NormalAction cardsSwap = new NormalAction(ActionIdentifier.CARD_SWAP, null, this,
+                            null);
+                    stack.addToStack(cardsSwap);
+                } else {
+                    // will acquire 1 coin from the treasury
+                    NormalAction incomeAcquisition = new NormalAction(ActionIdentifier.INCOME_ACQUISITION, null,
+                            this, null);
+                    stack.addToStack(incomeAcquisition);
+                }
+
             }
         }
     }
@@ -48,11 +60,7 @@ public class CautiousBot extends Bot {
     private void assassinateRandomCard(ActionsStack stack) {
         Player targetPlayer = RandomActionsUtils.getRandomPlayer(randomGenerator, this);
 
-        Card targetCard = RandomActionsUtils.getRandomCardOfPlayer(randomGenerator, targetPlayer);
-        CardIdentifier targetCardIdentifier = targetCard.getIdentifier();
-
-        AssassinationAction assassination = new AssassinationAction(this, targetPlayer,
-                targetCardIdentifier);
+        AssassinationAction assassination = new AssassinationAction(this, targetPlayer);
         stack.addToStack(assassination);
     }
 
@@ -70,7 +78,7 @@ public class CautiousBot extends Bot {
                 selectedCardsList.add(getCardOtherThanAmbassador());
             }
         } else {
-            selectedCardsList = currentCardsOfPlayerList;
+            selectedCardsList = new ArrayList<>(currentCardsOfPlayerList); // shallow-copying the current cards list
         }
 
         ExchangeAction exchange = new ExchangeAction(this, selectedCardsList);
@@ -84,7 +92,7 @@ public class CautiousBot extends Bot {
             }
         }
 
-        return null;
+        return hand.getCardsList().get(0);
     }
 
     private Card returnCardIfInList(CardIdentifier identifier, ArrayList<Card> cardsList) {
@@ -130,7 +138,7 @@ public class CautiousBot extends Bot {
                 int randomIndex = randomGenerator.nextInt(challengableActionsList.size());
                 Action actionToChallenge = challengableActionsList.get(randomIndex);
 
-                Challenge challenge = new Challenge(this, actionToChallenge.getTargetPlayer(),
+                Challenge challenge = new Challenge(this, actionToChallenge.getActionPlayer(),
                         actionToChallenge);
                 stack.addToStack(challenge);
             }

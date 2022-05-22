@@ -1,5 +1,6 @@
 package logic.models.actions;
 
+import logic.game.GameState;
 import logic.models.CardIdentifier;
 import logic.models.Player;
 import utils.logging.ActionState;
@@ -15,9 +16,14 @@ public class Challenge extends Action {
     }
 
     @Override
-    protected void resolveAction() {
+    public void resolveAction() {
         if (challengeIsCorrect()) {
             targetPlayer.punishPlayer();
+
+            if (challengedAction.getActionIdentifier() == ActionIdentifier.ASSASSINATION) { // deduct 3 coins in this case
+                int punishmentCoins = targetPlayer.reduceCoinsFromPlayer(3);
+                GameState.requestCoinsFromTreasury(punishmentCoins);
+            }
 
             challengedAction.setShouldBeSkipped(true);
 
@@ -28,11 +34,17 @@ public class Challenge extends Action {
 
             CardIdentifier cardIdentifierOfChallengedAction = challengedAction.getCardIdentifier();
             targetPlayer.swapRevealedCard(cardIdentifierOfChallengedAction);
+
+            LogHistory.logRevealedCard(targetPlayer.getPlayerIdentifier(), cardIdentifierOfChallengedAction);
         }
     }
 
     private boolean challengeIsCorrect() {
         return challengedAction.isBluff();
+    }
+
+    public Action getChallengedAction() {
+        return challengedAction;
     }
 
     public void setChallengedAction(Action challengedAction) {

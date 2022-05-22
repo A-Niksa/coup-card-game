@@ -4,14 +4,11 @@ import gui.MainFrame;
 import gui.game.GamePanel;
 import gui.guiconfig.game.components.PauseButtonConfig;
 import gui.guiutils.game.components.PauseButtonUtils;
-import gui.menus.PauseMenu;
 import utils.resources.ImageIdentifier;
 import utils.resources.ImageManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PauseButton extends JButton {
     private MainFrame mainFrame;

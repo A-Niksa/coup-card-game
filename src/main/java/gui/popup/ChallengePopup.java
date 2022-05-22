@@ -1,15 +1,11 @@
 package gui.popup;
 
 import gui.guiconfig.popup.ChallengePopupConfig;
-import gui.guiconfig.popup.specialactionpopups.SpecialActionSelectionConfig;
 import gui.guiutils.popup.ChallengePopupUtils;
-import gui.guiutils.popup.SpecialActionsUtils;
 import logic.game.GameState;
 import logic.models.Player;
 import logic.models.actions.Action;
-import logic.models.actions.ActionIdentifier;
 import logic.models.actions.ActionsStack;
-import logic.models.bots.botutils.PossibleActionsUtils;
 
 import javax.swing.*;
 import java.util.ArrayList;

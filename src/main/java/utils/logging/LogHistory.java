@@ -1,5 +1,6 @@
 package utils.logging;
 
+import logic.models.CardIdentifier;
 import logic.models.actions.ActionIdentifier;
 import utils.config.PlayerIdentifier;
 
@@ -50,15 +51,36 @@ public class LogHistory {
         consoleLogger.printLogToConsole(entry);
     }
 
-    public static void printSeparatorInConsole() {
-        getInstance().printSeparatorInConsoleByInstance();
+    public static void logRevealedCard(PlayerIdentifier actionPlayerIdentifier, CardIdentifier revealedCard) {
+        getInstance().logRevealedCardByInstance(actionPlayerIdentifier, revealedCard);
     }
 
-    private void printSeparatorInConsoleByInstance() {
-        consoleLogger.printSeparator();
+    private void logRevealedCardByInstance(PlayerIdentifier actionPlayerIdentifier, CardIdentifier revealedCard) {
+        LogEntry entry = new LogEntry(actionPlayerIdentifier, revealedCard);
+        logEntriesList.add(entry);
+
+        consoleLogger.printLogToConsole(entry);
+    }
+
+    public static void addSeparatorToLogs() {
+        getInstance().addSeparatorToLogsByInstance();
+    }
+
+    private void addSeparatorToLogsByInstance() {
+        String separator = "#===========================================#";
+
+        consoleLogger.printSeparator(separator);
     }
 
     public static ArrayList<LogEntry> getLogEntriesList() {
         return getInstance().logEntriesList;
+    }
+
+    public static void clear() {
+        getInstance().clearByInstance();
+    }
+
+    private void clearByInstance() {
+        logEntriesList.clear();
     }
 }

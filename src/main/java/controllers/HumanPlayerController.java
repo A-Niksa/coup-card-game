@@ -53,7 +53,7 @@ public class HumanPlayerController {
                 action = CommandInterpretationUtils.interpretCoup(currentCommand, humanPlayer);
                 break;
             case TAXATION:
-                action= CommandInterpretationUtils.interpretTaxation(currentCommand, humanPlayer);
+                action = CommandInterpretationUtils.interpretTaxation(currentCommand, humanPlayer);
                 break;
 
             case ASSASSINATION_COUNTER:

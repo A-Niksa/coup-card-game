@@ -28,10 +28,6 @@ public class SpecialActionsOpenerUtils {
     }
 
     public static void goToCoupPopup(PopupFrame frame, ActionsPopup popupPanel, ActionsStack stack) {
-        if (ActionsPopupUtils.checkIfShouldAttemptCoup(frame)) {
-            return;
-        }
-
         CoupPopup popup = new CoupPopup(frame, popupPanel, stack);
         frame.setCurrentPanel(popup);
     }

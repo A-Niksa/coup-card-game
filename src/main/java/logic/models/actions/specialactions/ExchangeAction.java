@@ -1,4 +1,4 @@
-package logic.models.actions.cardutils.specialutils;
+package logic.models.actions.specialactions;
 
 import logic.models.Card;
 import logic.models.CardIdentifier;
@@ -8,7 +8,6 @@ import logic.models.actions.NormalAction;
 import logic.models.actions.cardutils.AmbassadorActions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ExchangeAction extends NormalAction {
     private ArrayList<Card> selectedCardsList;
@@ -19,7 +18,7 @@ public class ExchangeAction extends NormalAction {
     }
 
     @Override
-    protected void resolveAction() {
+    public void resolveAction() {
         AmbassadorActions.exchangeCards(actionPlayer, selectedCardsList);
     }
 

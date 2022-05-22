@@ -2,7 +2,6 @@ package gui.guiutils.popup;
 
 import controllers.actioncommands.ChallengeCommand;
 import gui.popup.ChallengePopup;
-import gui.popup.specialactionpopups.SpecialActionPopupTemplate;
 import logic.game.GameState;
 import logic.models.Player;
 import logic.models.actions.Action;

@@ -40,6 +40,8 @@ public abstract class SpecialActionPopupTemplate extends PopupTemplate {
     }
 
     private void connectListenerOfBackButton() {
-        backButton.addActionListener(e -> {frame.setCurrentPanel(previousPopupPanel);});
+        backButton.addActionListener(e -> {
+            frame.setCurrentPanel(previousPopupPanel);
+        });
     }
 }

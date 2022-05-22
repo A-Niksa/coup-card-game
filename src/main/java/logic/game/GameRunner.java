@@ -24,6 +24,8 @@ public class GameRunner implements Runnable {
 
     public void run() {
         while (!GameState.gameHasEnded()) { // each iteration corresponds to a round (and each round has 3 stages)
+            gamePanel.updatePanel();
+
             currentTurnIndex = GameState.getIndexOfCurrentPlayer();
             currentTurnInStageIndex = currentTurnIndex;
             currentPlayer = GameState.getCurrentPlayerFromTurnKeeper();
@@ -38,6 +40,8 @@ public class GameRunner implements Runnable {
             }
 
             currentPlayer.playNormalAction(stack);
+
+            suspendProgram(250);
             gamePanel.updateNotifiers();
 
             askPlayersIfTheyWantToPlayCounterAction();
@@ -45,7 +49,7 @@ public class GameRunner implements Runnable {
 
             stack.resolveStack(gamePanel);
 
-            gamePanel.updatePanel();
+            suspendProgram(250);
             GameState.advanceTurnInTurnKeeper();
         }
 
@@ -59,6 +63,7 @@ public class GameRunner implements Runnable {
         for (Player player : partialIterable) {
             if (!player.hasLost()) {
                 GameStateHistory.log(GameStateIdentifier.COUNTER_ACTIONS, player.getPlayerIdentifier());
+                suspendProgram(250);
                 gamePanel.updateNotifiers();
 
                 currentTurnInStageIndex = player.getPlayerIndex();
@@ -67,6 +72,7 @@ public class GameRunner implements Runnable {
 
                 player.playCounterAction(stack);
 
+                suspendProgram(250);
                 gamePanel.updateNotifiers();
             }
         }
@@ -79,6 +85,7 @@ public class GameRunner implements Runnable {
         for (Player player : iterable) {
             if (!player.hasLost()) {
                 GameStateHistory.log(GameStateIdentifier.CHALLENGES, player.getPlayerIdentifier());
+                suspendProgram(250);
                 gamePanel.updateNotifiers();
 
                 currentTurnInStageIndex = player.getPlayerIndex();
@@ -89,6 +96,7 @@ public class GameRunner implements Runnable {
 
                 player.challenge(stack);
 
+                suspendProgram(250);
                 gamePanel.updateNotifiers();
             }
         }

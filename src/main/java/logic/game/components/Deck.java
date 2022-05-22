@@ -8,6 +8,7 @@ import logic.models.Player;
 import utils.config.ConfigProcessor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -58,7 +59,8 @@ public class Deck {
         Card secondCard = getCardByIdentifier(cardIdentifiersOfPlayer.get(1));
 
         Hand hand = new Hand();
-        hand.addCardsToHand(firstCard, secondCard);
+        ArrayList<Card> cardsList = new ArrayList<>(Arrays.asList(firstCard, secondCard));
+        hand.addCardsToHand(cardsList);
 
         return hand;
     }
@@ -78,7 +80,8 @@ public class Deck {
         Card secondCard = getRandomCard();
 
         Hand hand = new Hand();
-        hand.addCardsToHand(firstCard, secondCard);
+        ArrayList<Card> cardsList = new ArrayList<>(Arrays.asList(firstCard, secondCard));
+        hand.addCardsToHand(cardsList);
 
         return hand;
     }

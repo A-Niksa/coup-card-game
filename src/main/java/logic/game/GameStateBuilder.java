@@ -10,6 +10,7 @@ import logic.models.Player;
 import logic.models.bots.*;
 import utils.config.ConfigProcessor;
 import utils.config.PlayerIdentifier;
+import utils.logging.LogHistory;
 
 import java.util.ArrayList;
 
@@ -32,8 +33,13 @@ public class GameStateBuilder {
         getInstance().createNewComponents();
         getInstance().createNewPlayers();
         getInstance().createNewTools();
+        clearLogHistory();
 
         GameState.setIndexOfCurrentPlayer(0); // starts from 0 by default (so starts with human player)
+    }
+
+    private static void clearLogHistory() {
+        LogHistory.clear();
     }
 
     private void createNewPlayers() {
@@ -53,7 +59,7 @@ public class GameStateBuilder {
 
         ArrayList<Bot> botsList = new ArrayList<>();
         for (int i = 1; i <= identifiersOfBotsList.size(); i++) {
-            Bot bot = createBot(identifiersOfBotsList.get(i-1), i);
+            Bot bot = createBot(identifiersOfBotsList.get(i - 1), i);
 
             if (bot != null) { // createBot returns null if it can't match the identifier to the desired bot
                 botsList.add(bot);

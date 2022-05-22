@@ -2,7 +2,6 @@ package logic.models.actions.cardutils;
 
 import logic.models.Player;
 import logic.models.actions.ActionIdentifier;
-import utils.config.PlayerIdentifier;
 import utils.logging.ActionState;
 import utils.logging.LogHistory;
 
@@ -12,7 +11,7 @@ public class CaptainActions {
         int extortedCoins = targetPlayer.extortCoinsFromPlayer(2);
         actionPlayer.addCoinsToPlayer(extortedCoins);
 
-        LogHistory.log(actionPlayer.getPlayerIdentifier(), actionPlayer.getPlayerIdentifier(),
+        LogHistory.log(actionPlayer.getPlayerIdentifier(), targetPlayer.getPlayerIdentifier(),
                 ActionIdentifier.EXTORTION, ActionState.SUCCESSFUL);
     }
 

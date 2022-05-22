@@ -2,22 +2,25 @@ package gui.game;
 
 import gui.MainFrame;
 import gui.Template;
-import gui.game.components.displays.CoinsAmountDisplay;
 import gui.game.components.DynamicComponent;
+import gui.game.components.PauseButton;
+import gui.game.components.RectangularContainer;
+import gui.game.components.displays.CoinsAmountDisplay;
 import gui.game.components.displays.DisplayLocation;
 import gui.game.components.displays.PlayerNameDisplay;
 import gui.game.components.hands.BotHand;
 import gui.game.components.hands.HumanHand;
-import gui.game.components.PauseButton;
-import gui.game.components.RectangularContainer;
 import gui.game.components.notifiers.LogNotifier;
 import gui.game.components.notifiers.StatusNotifier;
-import gui.guiconfig.game.components.*;
+import gui.guiconfig.game.components.CommandsContainerConfig;
+import gui.guiconfig.game.components.HelpButtonConfig;
+import gui.guiconfig.game.components.LogButtonConfig;
+import gui.guiconfig.game.components.PauseButtonConfig;
+import gui.guiutils.GeneralUtils;
+import gui.guiutils.game.GamePanelUtils;
 import gui.popup.ActionsPopup;
 import gui.popup.ChallengePopup;
 import gui.popup.HelpPopup;
-import gui.guiutils.GeneralUtils;
-import gui.guiutils.game.GamePanelUtils;
 import gui.popup.LogPopup;
 import logic.game.GameRunner;
 import utils.resources.ImageIdentifier;
@@ -145,6 +148,10 @@ public class GamePanel extends Template implements DynamicPanel {
 
         challengeButton.addActionListener(e -> {
             if (GamePanelUtils.checkIfShouldNotChallenge(mainFrame)) {
+                return;
+            }
+
+            if (GamePanelUtils.checkIfThereHasAlreadyBeenAChallenge(mainFrame, gameRunner.getStack())) {
                 return;
             }
 
