@@ -40,8 +40,8 @@ public class GameRunner implements Runnable {
             currentPlayer.playNormalAction(stack);
             gamePanel.updateNotifiers();
 
-            askPlayersIfTheyWantToPlayCounterAction(currentTurnIndex, stack);
-            askPlayersIfTheyWantToChallenge(currentTurnIndex, stack);
+            askPlayersIfTheyWantToPlayCounterAction();
+            askPlayersIfTheyWantToChallenge();
 
             stack.resolveStack(gamePanel);
 
@@ -52,9 +52,9 @@ public class GameRunner implements Runnable {
         gamePanel.finishGameAndShowWinner();
     }
 
-    private void askPlayersIfTheyWantToPlayCounterAction(int currentTurnIndex, ActionsStack stack) {
+    private void askPlayersIfTheyWantToPlayCounterAction() {
         // asks all players except the current player
-        PlayerIterable partialIterable = getNewIterableForAllExceptCurrentPlayer(currentTurnIndex);
+        PlayerIterable partialIterable = getNewIterableForAllExceptCurrentPlayer();
 
         for (Player player : partialIterable) {
             if (!player.hasLost()) {
@@ -72,9 +72,9 @@ public class GameRunner implements Runnable {
         }
     }
 
-    private void askPlayersIfTheyWantToChallenge(int currentTurnIndex, ActionsStack stack) {
+    private void askPlayersIfTheyWantToChallenge() {
         // asks all players
-        PlayerIterable iterable = getNewIterableForAll(currentTurnIndex);
+        PlayerIterable iterable = getNewIterableForAll();
 
         for (Player player : iterable) {
             if (!player.hasLost()) {
@@ -94,13 +94,13 @@ public class GameRunner implements Runnable {
         }
     }
 
-    private PlayerIterable getNewIterableForAll(int currentTurnIndex) {
+    private PlayerIterable getNewIterableForAll() {
         ArrayList<Player> playersList = GameState.getPlayersList();
 
         return new PlayerIterable(currentTurnIndex, playersList, PlayerIterator.IterationType.ALL_PLAYERS);
     }
 
-    private PlayerIterable getNewIterableForAllExceptCurrentPlayer(int currentTurnIndex) {
+    private PlayerIterable getNewIterableForAllExceptCurrentPlayer() {
         ArrayList<Player> playersList = GameState.getPlayersList();
 
         return new PlayerIterable(currentTurnIndex, playersList,

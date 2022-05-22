@@ -39,8 +39,10 @@ public class PossibleActionsUtils {
 
 
             if ((isNormalAction || isCounterAction) && !isAnUnchallengeableAction) {
-                if (action.getActionPlayer() != currentPlayer) {
+                if (action.getActionPlayer().getPlayerIdentifier() != currentPlayer.getPlayerIdentifier()) {
                     challengeableActionsList.add(action);
+
+                    System.out.println(action.getActionPlayer().getPlayerIdentifier() + " " + action.getActionIdentifier());
                 }
             }
         }
@@ -73,7 +75,8 @@ public class PossibleActionsUtils {
         return null;
     }
 
-    public static CounterAction getAppropriateCounterAction(Player targetPlayer, Action attackActionOnPlayer) {
+    public static CounterAction getAppropriateCounterAction(Player targetPlayer, Action attackActionOnPlayer,
+                                                            ActionsStack stack) {
         Player attackActionPlayer = attackActionOnPlayer.getActionPlayer();
         ActionIdentifier attackActionIdentifier = attackActionOnPlayer.getActionIdentifier();
 
@@ -81,11 +84,11 @@ public class PossibleActionsUtils {
         switch (attackActionIdentifier) {
             case ASSASSINATION:
                 counterAction = new CounterAction(ActionIdentifier.ASSASSINATION_COUNTER, CardIdentifier.CONTESSA,
-                        targetPlayer, attackActionPlayer);
+                        targetPlayer, attackActionPlayer, stack);
                 break;
             case EXTORTION:
                 counterAction = new CounterAction(ActionIdentifier.EXTORTION_COUNTER, CardIdentifier.CAPTAIN,
-                        targetPlayer, attackActionPlayer);
+                        targetPlayer, attackActionPlayer, stack);
                 break;
             default:
                 counterAction = null;

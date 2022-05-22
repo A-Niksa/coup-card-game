@@ -50,11 +50,11 @@ public abstract class Action {
 
         for (Card card : cardsListOfPlayer) {
             if (actionFitsCard(card)) {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
     private boolean actionFitsCard(Card card) {

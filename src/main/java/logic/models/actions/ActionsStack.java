@@ -1,6 +1,7 @@
 package logic.models.actions;
 
 import gui.game.GamePanel;
+import utils.logging.LogHistory;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -18,6 +19,8 @@ public class ActionsStack {
                 action.resolveAction();
             }
         }
+
+        LogHistory.printSeparatorInConsole();
     }
 
     public void addToStack(Action action) {

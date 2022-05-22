@@ -4,12 +4,11 @@ import logic.game.GameState;
 import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Player;
-import logic.models.actions.ActionIdentifier;
-import logic.models.actions.ActionsStack;
-import logic.models.actions.NormalAction;
+import logic.models.actions.*;
 import logic.models.actions.cardutils.specialutils.AssassinationAction;
 import logic.models.actions.cardutils.specialutils.CoupAction;
 import logic.models.actions.cardutils.specialutils.ExchangeAction;
+import logic.models.bots.botutils.PossibleActionsUtils;
 import logic.models.bots.botutils.RandomActionsUtils;
 import utils.config.PlayerIdentifier;
 
@@ -117,6 +116,24 @@ public class CautiousBot extends Bot {
 
     @Override
     public void challenge(ActionsStack stack) {
-        // does nothing
+        if (RandomActionsUtils.getRandomBoolean(randomGenerator)) {
+            boolean thereHaveBeenTooManyChallenges = PossibleActionsUtils.thereHaveAlreadyBeenTooManyChallenges(stack);
+
+            if (!thereHaveBeenTooManyChallenges) {
+                ArrayList<Action> challengableActionsList =
+                        PossibleActionsUtils.getListOfChallengeableActions(stack, this);
+
+                if (challengableActionsList.isEmpty()) {
+                    return;
+                }
+
+                int randomIndex = randomGenerator.nextInt(challengableActionsList.size());
+                Action actionToChallenge = challengableActionsList.get(randomIndex);
+
+                Challenge challenge = new Challenge(this, actionToChallenge.getTargetPlayer(),
+                        actionToChallenge);
+                stack.addToStack(challenge);
+            }
+        }
     }
 }

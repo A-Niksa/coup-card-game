@@ -27,7 +27,7 @@ public class Challenge extends Action {
             actionPlayer.punishPlayer();
 
             CardIdentifier cardIdentifierOfChallengedAction = challengedAction.getCardIdentifier();
-            actionPlayer.swapRevealedCard(cardIdentifierOfChallengedAction);
+            targetPlayer.swapRevealedCard(cardIdentifierOfChallengedAction);
         }
     }
 

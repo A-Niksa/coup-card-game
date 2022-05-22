@@ -3,10 +3,9 @@ package logic.models.bots;
 import logic.models.Card;
 import logic.models.CardIdentifier;
 import logic.models.Player;
-import logic.models.actions.ActionIdentifier;
-import logic.models.actions.ActionsStack;
-import logic.models.actions.NormalAction;
+import logic.models.actions.*;
 import logic.models.actions.cardutils.specialutils.CoupAction;
+import logic.models.bots.botutils.PossibleActionsUtils;
 import logic.models.bots.botutils.RandomActionsUtils;
 import utils.config.PlayerIdentifier;
 
@@ -36,7 +35,18 @@ public class CoupLovingBot extends Bot {
 
     @Override
     public void playCounterAction(ActionsStack stack) {
-        // will do nothing
+        if (RandomActionsUtils.getRandomBoolean(randomGenerator)) {
+            Action attackAction = PossibleActionsUtils.getAttackActionOnPlayer(this, stack);
+
+            if (attackAction != null) {
+                CounterAction counterAction = PossibleActionsUtils.getAppropriateCounterAction(this,
+                        attackAction, stack);
+
+                if (counterAction != null) {
+                    stack.addToStack(counterAction);
+                }
+            }
+        }
     }
 
     @Override

@@ -68,8 +68,8 @@ public class CoupPopup extends SpecialActionPopupTemplate {
                 }
             }
 
-            if (numberOfSelectedButtons > 1) {
-                JOptionPane.showMessageDialog(frame, "You should only select one opponent.");
+            if (numberOfSelectedButtons != 1) {
+                JOptionPane.showMessageDialog(frame, "You should select one opponent.");
                 return;
             }
 

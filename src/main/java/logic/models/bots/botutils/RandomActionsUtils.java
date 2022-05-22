@@ -14,10 +14,12 @@ public class RandomActionsUtils { // this class is not exclusive to the RandomBo
     public static Player getRandomPlayer(Random randomGenerator, Player currentPlayer) {
         // gets random player except for the player itself
         ArrayList<Player> playersList = GameState.getPlayersList();
-        removePlayerFromList(currentPlayer, playersList);
 
-        int randomIndex = randomGenerator.nextInt(playersList.size());
-        return playersList.get(randomIndex);
+        ArrayList<Player> playersListCopy = new ArrayList<>(playersList);
+        removePlayerFromList(currentPlayer, playersListCopy);
+
+        int randomIndex = randomGenerator.nextInt(playersListCopy.size());
+        return playersListCopy.get(randomIndex);
     }
 
     private static void removePlayerFromList(Player playerToRemove, ArrayList<Player> playersList) {

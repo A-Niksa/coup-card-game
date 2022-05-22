@@ -40,7 +40,7 @@ public class RandomBot extends Bot {
 
             if (attackAction != null) {
                 CounterAction counterAction = PossibleActionsUtils.getAppropriateCounterAction(this,
-                        attackAction);
+                        attackAction, stack);
 
                 if (counterAction != null) {
                     stack.addToStack(counterAction);

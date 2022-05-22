@@ -19,12 +19,10 @@ public class PlayerIterator implements Iterator<Player> {
 
     public PlayerIterator(int currentTurnIndex, ArrayList<Player> playersList, IterationType type) {
         if (type == IterationType.ALL_PLAYERS) {
-            this.currentTurnIndex = currentTurnIndex;
-        } else {
-            this.currentTurnIndex = currentTurnIndex + 1;
+            this.currentTurnIndex = currentTurnIndex; // there's no need for %4 since it's already done by turnKeeper
+        } else { // type == IterationType.ALL_PLAYERS_EXCEPT_CURRENT_PLAYER
+            this.currentTurnIndex = (currentTurnIndex + 1) % 4; // +1 so that the turn starts from the next player
         }
-
-
         this.playersList = playersList;
         this.type = type;
 
@@ -42,7 +40,7 @@ public class PlayerIterator implements Iterator<Player> {
 
     @Override
     public Player next() {
-        Player nextPlayer = playersList.get((currentTurnIndex) % 4);
+        Player nextPlayer = playersList.get(currentTurnIndex);
         currentTurnIndex = (currentTurnIndex + 1) % 4;
 
         return nextPlayer;

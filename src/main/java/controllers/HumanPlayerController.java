@@ -52,15 +52,18 @@ public class HumanPlayerController {
             case COUP:
                 action = CommandInterpretationUtils.interpretCoup(currentCommand, humanPlayer);
                 break;
+            case TAXATION:
+                action= CommandInterpretationUtils.interpretTaxation(currentCommand, humanPlayer);
+                break;
 
             case ASSASSINATION_COUNTER:
-                action = CommandInterpretationUtils.interpretAssassinationCounter(currentCommand, humanPlayer, stack);
+                action = CommandInterpretationUtils.interpretAssassinationCounter(humanPlayer, stack);
                 break;
             case EXTORTION_COUNTER:
-                action = CommandInterpretationUtils.interpretExtortionCounter(currentCommand, humanPlayer);
+                action = CommandInterpretationUtils.interpretExtortionCounter(currentCommand, humanPlayer, stack);
                 break;
             case EXTERNAL_HELP_REQUEST_COUNTER:
-                action = CommandInterpretationUtils.interpretHelpRequestCounter(currentCommand, humanPlayer);
+                action = CommandInterpretationUtils.interpretHelpRequestCounter(currentCommand, humanPlayer, stack);
                 break;
 
             case CHALLENGE:

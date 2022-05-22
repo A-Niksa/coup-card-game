@@ -50,6 +50,14 @@ public class LogHistory {
         consoleLogger.printLogToConsole(entry);
     }
 
+    public static void printSeparatorInConsole() {
+        getInstance().printSeparatorInConsoleByInstance();
+    }
+
+    private void printSeparatorInConsoleByInstance() {
+        consoleLogger.printSeparator();
+    }
+
     public static ArrayList<LogEntry> getLogEntriesList() {
         return getInstance().logEntriesList;
     }

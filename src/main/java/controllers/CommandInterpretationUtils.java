@@ -51,6 +51,14 @@ public class CommandInterpretationUtils {
         return action;
     }
 
+    public static Action interpretTaxation(Command command, Human humanPlayer) {
+        TaxationCommand taxationCommand = (TaxationCommand) command;
+
+        NormalAction action = new NormalAction(ActionIdentifier.TAXATION, CardIdentifier.DUKE, humanPlayer,
+                null);
+        return action;
+    }
+
     public static Action interpretIncomeAcquisition(Command command, Human humanPlayer) {
         NormalAction action = new NormalAction(ActionIdentifier.INCOME_ACQUISITION, null, humanPlayer,
                 null);
@@ -81,31 +89,31 @@ public class CommandInterpretationUtils {
         return action;
     }
 
-    public static Action interpretAssassinationCounter(Command command, Human humanPlayer, ActionsStack stack) {
+    public static Action interpretAssassinationCounter(Human humanPlayer, ActionsStack stack) {
         Player actionPerpetrator = getAssassinationPerpetrator(stack);
 
-        NormalAction action = new NormalAction(ActionIdentifier.ASSASSINATION_COUNTER, null, humanPlayer,
-                actionPerpetrator);
+        CounterAction action = new CounterAction(ActionIdentifier.ASSASSINATION_COUNTER, null, humanPlayer,
+                actionPerpetrator, stack);
         return action;
     }
 
-    public static Action interpretExtortionCounter(Command command, Human humanPlayer) {
+    public static Action interpretExtortionCounter(Command command, Human humanPlayer, ActionsStack stack) {
         ExtortionCounterCommand extortionCounterCommand = (ExtortionCounterCommand) command;
 
         CardIdentifier playingCardIdentifier = extortionCounterCommand.getPlayingCardIdentifier();
 
-        NormalAction action = new NormalAction(ActionIdentifier.EXTORTION_COUNTER, playingCardIdentifier, humanPlayer,
-                null);
+        CounterAction action = new CounterAction(ActionIdentifier.EXTORTION_COUNTER, playingCardIdentifier, humanPlayer,
+                null, stack);
         return action;
     }
 
-    public static Action interpretHelpRequestCounter(Command command, Human humanPlayer) {
+    public static Action interpretHelpRequestCounter(Command command, Human humanPlayer, ActionsStack stack) {
         HelpRequestCounterCommand helpRequestCounterCommand = (HelpRequestCounterCommand) command;
 
         Player targetPlayer = getPlayerByIdentifier(helpRequestCounterCommand.getTargetPlayerIdentifier());
 
-        NormalAction action = new NormalAction(ActionIdentifier.EXTERNAL_HELP_REQUEST_COUNTER, CardIdentifier.DUKE,
-                humanPlayer, targetPlayer);
+        CounterAction action = new CounterAction(ActionIdentifier.EXTERNAL_HELP_REQUEST_COUNTER, CardIdentifier.DUKE,
+                humanPlayer, targetPlayer, stack);
         return action;
     }
 

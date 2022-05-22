@@ -51,6 +51,8 @@ public class ExtortionPopup extends SpecialActionPopupTemplate {
             button.setBounds(SpecialActionSelectionConfig.X_RADIO_BUTTON, currentY, SpecialActionSelectionConfig.BUTTON_WIDTH,
                     SpecialActionSelectionConfig.BUTTON_HEIGHT);
             add(button);
+
+            currentY += SpecialActionSelectionConfig.Y_DIFFERENCE;
         }
     }
 
@@ -66,8 +68,8 @@ public class ExtortionPopup extends SpecialActionPopupTemplate {
                 }
             }
 
-            if (numberOfSelectedButtons > 1) {
-                JOptionPane.showMessageDialog(frame, "You should only select one opponent.");
+            if (numberOfSelectedButtons != 1) {
+                JOptionPane.showMessageDialog(frame, "You should select one opponent.");
                 return;
             }
 

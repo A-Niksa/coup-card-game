@@ -88,8 +88,8 @@ public class ChallengePopup extends PopupTemplate {
                 }
             }
 
-            if (numberOfSelectedButtons > 1) {
-                JOptionPane.showMessageDialog(frame, "You should only select one action to challenge.");
+            if (numberOfSelectedButtons != 1) {
+                JOptionPane.showMessageDialog(frame, "You should select one action to challenge.");
                 return;
             }
 

@@ -87,8 +87,8 @@ public class ExchangePopup extends SpecialActionPopupTemplate {
             }
 
             int numberOfAllowedSelections = (exchangeCardsList.size() - 2);
-            if (numberOfSelectedButtons > (numberOfAllowedSelections)) {
-                JOptionPane.showMessageDialog(frame, "You should only select " + numberOfAllowedSelections
+            if (numberOfSelectedButtons != numberOfAllowedSelections) {
+                JOptionPane.showMessageDialog(frame, "You should select " + numberOfAllowedSelections
                         + " card(s).");
                 return;
             }

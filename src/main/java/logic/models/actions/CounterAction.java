@@ -8,8 +8,21 @@ public class CounterAction extends Action {
     private Action counteredAction;
 
     public CounterAction(ActionIdentifier actionIdentifier, CardIdentifier cardIdentifier, Player actionPlayer,
-                         Player targetPlayer) {
+                         Player targetPlayer, ActionsStack stack) {
         super(actionIdentifier, cardIdentifier, actionPlayer, targetPlayer, false, true);
+
+        setCounteredAction(stack);
+    }
+
+    private void setCounteredAction(ActionsStack stack) {
+        for (Action action : stack.getStackOfActions()) {
+            if (action.getActionIdentifier() != ActionIdentifier.CHALLENGE) {
+                if (action.getActionPlayer().getPlayerIdentifier() == targetPlayer.getPlayerIdentifier()) {
+                    counteredAction = action;
+                    return;
+                }
+            }
+        }
     }
 
     @Override
