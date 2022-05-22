@@ -29,10 +29,8 @@ public class RandomBot extends Bot {
             return;
         }
 
-        if (randomBoolean()) {
-            NormalAction normalAction = RandomActionsUtils.getRandomSimpleAction(randomGenerator, this);
-            stack.addToStack(normalAction);
-        }
+        NormalAction normalAction = RandomActionsUtils.getRandomSimpleAction(randomGenerator, this);
+        stack.addToStack(normalAction);
     }
 
     @Override

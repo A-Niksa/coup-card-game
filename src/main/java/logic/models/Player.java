@@ -39,9 +39,9 @@ public abstract class Player {
 
     public void punishPlayer() {
         Random randomGenerator = new Random();
-        int randomNumberBetweenZeroAndOne = randomGenerator.nextInt(2);
+        int randomIndex = randomGenerator.nextInt(hand.getCardsList().size());
 
-        hand.removeCard(randomNumberBetweenZeroAndOne);
+        hand.removeCard(randomIndex);
     }
 
     public void addCoinsToPlayer(int numberOfCoinsToAdd) {
